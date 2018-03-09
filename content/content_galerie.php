@@ -1,4 +1,5 @@
 <html>
+    <h1>BLA!!</h1>
     <?php
     echo "<div class='container-fluid'>";
 
@@ -51,6 +52,21 @@ function printFormAlbum() {
             <div class='container-fluid'>
                 <div class='col-md-10 col-md-offset-1 noir'>
                 <h3>Supprimer un album</h3>
+                <form method="post">
+                    Selectionnez l'album à supprimer : 
+                    <select name='album'>
+FIN;
+    // ---------- liste déroulante du nom des albums ----------
+
+        foreach ($albums as $album) {
+            echo "<option value='$titre'>$titre</option>";
+        }
+        
+        echo <<<FIN
+                
+                </select>
+                    <input type="submit" value="Supprimer">
+                </form>
                 </div>
             </div>
         </div>
