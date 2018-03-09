@@ -48,7 +48,7 @@ class Utilisateur {
 
     public static function testerMdp($dbh, $login, $mdp) {
         $user = Utilisateur::getUtilisateur($dbh, $login);
-        if ($user->password == SHA1($mdp)) {
+        if ($mdp != '' && $user->password == SHA1($mdp)) {
             return true;
         }
         return false;

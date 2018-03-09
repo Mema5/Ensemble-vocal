@@ -106,6 +106,10 @@ FIN;
             echo "</a></li>";
         }
     }
+    if ($admin){
+            echo "<li><a href='index.php?page=accueil&todo=disconnect'> Déconnexion";
+            echo "</a></li>";
+        }
     //echo logButton();
     echo"</ul></div></div></div>";
 }
@@ -121,4 +125,9 @@ function generateHTMLFooter() {
         
     </html>
 FIN;
+}
+
+function disconnect(){
+    unset($_SESSION['loggedIn']);
+    $_SESSION['admin']=false;
 }

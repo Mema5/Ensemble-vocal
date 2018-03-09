@@ -2,7 +2,7 @@
 
 
 <?php
-session_name("User");
+session_name("Session de l'utilisateur");
 session_start();
 if (!isset($_SESSION['initiated'])) {
     session_regenerate_id();
@@ -41,7 +41,11 @@ if (array_key_exists('page', $_GET)) {
     $page = 'accueil';
 }
 
-
+if (array_key_exists('todo',$_GET)){
+    if ($_GET['todo']== 'disconnect') {
+        disconnect();
+    }
+}
 
 
 
@@ -71,6 +75,10 @@ generateHTMLHeader($pageTitle, array("css/bootstrap.css", "css/perso.css"));
 <?php
 generateMenu($_SESSION['admin']);
 ?>
+
+
+
+
 
 <div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png')">
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
