@@ -65,7 +65,6 @@ generateMenu($_SESSION['admin']);
 
 
 
-
 <div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png')">
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
 </div>
