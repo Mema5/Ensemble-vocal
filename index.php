@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php session_name("SessionUtilisateur");session_start();
 if (!isset($_SESSION['initiated'])) {
     session_regenerate_id();
@@ -14,7 +16,6 @@ $dbh = Database::connect();
 init_admin($dbh);
 
 
-var_dump($_SESSION);
 
 
 if (!isset($_SESSION['admin'])) {

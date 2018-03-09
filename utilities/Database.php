@@ -48,7 +48,7 @@ class Utilisateur {
 
     public static function testerMdp($dbh, $login, $mdp) {
         $user = Utilisateur::getUtilisateur($dbh, $login);
-        if (isset($user->password)&& $user->password == SHA1($mdp)) {
+        if (isset($user->password) && $user->password == SHA1($mdp)) {
             return true;
         }
         return false;
@@ -64,7 +64,7 @@ class Utilisateur {
 function login($dbh) {
     if (isset($_POST['login']) and isset($_POST['mdp'])) {
         if (Utilisateur::testerMdp($dbh, $_POST['login'], $_POST['mdp'])) {
-            $_SESSION['loggedIn']=true;
+            $_SESSION['loggedIn'] = true;
             $user = Utilisateur::getUtilisateur($dbh, $_POST['login']);
             $_SESSION['admin'] = $user->admin;
         }
@@ -76,19 +76,18 @@ function init_admin($dbh) {
         $todo = $_GET['todo'];
         if ($todo == 'login') {
             login($dbh);
-        }
-        elseif ($todo=='disconnect') {
+        } elseif ($todo == 'disconnect') {
             disconnect();
         }
     }
 }
 
 class Albums {
-    
+
     public $titre;
     public $date;
     public $description;
-    
+
     public static function getAlbums($dbh) {
         $sth = $dbh->prepare("SELECT * FROM `albums` ORDER BY `albums`.`date` DESC");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Albums');
@@ -96,42 +95,90 @@ class Albums {
         $liste_album = $sth->fetchAll();
         return $liste_album;
     }
-    
+
     public static function addAlbum($dbh, $titre, $date, $description) {
         $sth = $dbh->prepare("INSERT INTO `albums` (`titre`, `date`, `description`) VALUES (?,?,?)");
         $sth->execute(array($titre, $date, $description));
     }
-    
+
     public static function deleteAlbum($dbh, $titre) {
         $sth = $dbh->prepare("DELETE FROM `albums` WHERE `titre`=?");
-        $sth->execute(array($titre));         
+        $sth->execute(array($titre));
     }
-    
+
     public static function addPhotos($dbh, $nbPhotos, $titre_album) {
         /*
          * Créé $nbPhotos photos supplémentaires dans l'album $titre_album
          * Renvoie la clé de la première photo ajoutée
          */
         $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`titre_album` = ?)");
-        
+
         $sth->execute(array($titre_album));
         $cle_max = $sth->fetch();
         // cle_max[0] vaut la plus grande clé des photos de l'album ou NULL si pas de photo
-        
-        if ($cle_max==NULL) {
+
+        if ($cle_max == NULL) {
             $cle_max = 0;
-        }
-        else {
+        } else {
             $cle_max = (int) $cle_max[0];
         }
-        
+
         $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`titre_album`) VALUES (?,?)");
-        for ($i=$cle_max+1; $i<=$cle_max+$nbPhotos; $i++) {
+        for ($i = $cle_max + 1; $i <= $cle_max + $nbPhotos; $i++) {
             $sth->execute(array($i, $titre_album));
         }
+
+        return $cle_max + 1;
+    }
+
+}
+
+class Concert {
+    
+    public $oeuvre;
+    public $titre;
+    public $auteur;
+    public $date;
+    public $heure;
+    public $description;
+    public $lieu;
+    public $id;
+
+    public static function getConcerts($dbh) {
+        $sth = $dbh->prepare("SELECT * FROM `concerts` ORDER BY `date` DESC");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Concert');
+        $sth->execute();
+        $liste_album = $sth->fetchAll();
+        return $liste_album;
+    }
+
+    public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu) {
+        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`) VALUES (?,?,?,?,?,?,?)");
+        $sth->execute(array($oeuvre, $titre, $auteur, $date, $heure, $description, $lieu));
+    }
+
+    public static function deleteConcert($dbh, $id) {
+        $sth = $dbh->prepare("DELETE FROM `concerts` WHERE `id`=?");
+        $sth->execute(array($id));
+    }
+
+    public function print_concert() {
+        echo <<<FIN
         
-        return $cle_max+1;
-    }  
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Concert du $this->date : $this->oeuvre à $this->lieu</h2>
+            </div>
+            <div class="panel-body">
+                $this->description
+            </div>
+        </div>
+        
+        
+FIN;
+    }
+
 }
 
 ?>
