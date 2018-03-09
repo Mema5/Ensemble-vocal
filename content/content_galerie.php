@@ -7,7 +7,7 @@
     //var_dump($_SESSION);
     //var_dump($_POST);
 
-    
+
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
         printFormAlbum($albums);
