@@ -85,11 +85,16 @@ function init_admin($dbh) {
 
 class Albums {
     
+    public $id;
     public $titre;
     public $date;
     public $description;
     
     public static function getAlbums($dbh) {
+        /*
+         * Retourne la liste des albums photos sous forme d'une liste d'objets
+         * de la classe Albums.
+         */
         $sth = $dbh->prepare("SELECT * FROM `albums` ORDER BY `albums`.`date` DESC");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Albums');
         $sth->execute();
@@ -97,24 +102,31 @@ class Albums {
         return $liste_album;
     }
     
+    public static function getTitle($dbh, $id) {
+        $sth = $dbh->prepare("SELECT `titre` FROM `albums` WHERE `id`=?");
+        $sth->execute(array($id));
+        $alb = $sth->fetch();
+        return $alb;
+    }
+    
     public static function addAlbum($dbh, $titre, $date, $description) {
         $sth = $dbh->prepare("INSERT INTO `albums` (`titre`, `date`, `description`) VALUES (?,?,?)");
         $sth->execute(array($titre, $date, $description));
     }
     
-    public static function deleteAlbum($dbh, $titre) {
-        $sth = $dbh->prepare("DELETE FROM `albums` WHERE `titre`=?");
-        $sth->execute(array($titre));         
+    public static function deleteAlbum($dbh, $id) {
+        $sth = $dbh->prepare("DELETE FROM `albums` WHERE `id`=?");
+        $sth->execute(array($id));         
     }
     
-    public static function addPhotos($dbh, $nbPhotos, $titre_album) {
+    public static function addPhotos($dbh, $nbPhotos, $id_album) {
         /*
-         * Créé $nbPhotos photos supplémentaires dans l'album $titre_album
+         * Créé $nbPhotos photos supplémentaires dans l'album $id_album
          * Renvoie la clé de la première photo ajoutée
          */
-        $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`titre_album` = ?)");
+        $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`id_album` = ?)");
         
-        $sth->execute(array($titre_album));
+        $sth->execute(array($id_album));
         $cle_max = $sth->fetch();
         // cle_max[0] vaut la plus grande clé des photos de l'album ou NULL si pas de photo
         
@@ -125,9 +137,9 @@ class Albums {
             $cle_max = (int) $cle_max[0];
         }
         
-        $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`titre_album`) VALUES (?,?)");
+        $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`id_album`) VALUES (?,?)");
         for ($i=$cle_max+1; $i<=$cle_max+$nbPhotos; $i++) {
-            $sth->execute(array($i, $titre_album));
+            $sth->execute(array($i, $id_album));
         }
         
         return $cle_max+1;
