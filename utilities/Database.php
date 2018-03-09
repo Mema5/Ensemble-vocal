@@ -48,7 +48,7 @@ class Utilisateur {
 
     public static function testerMdp($dbh, $login, $mdp) {
         $user = Utilisateur::getUtilisateur($dbh, $login);
-        if ($mdp != '' && $user->password == SHA1($mdp)) {
+        if (isset($user->password)&& $user->password == SHA1($mdp)) {
             return true;
         }
         return false;
@@ -76,6 +76,9 @@ function init_admin($dbh) {
         $todo = $_GET['todo'];
         if ($todo == 'login') {
             login($dbh);
+        }
+        elseif ($todo=='disconnect') {
+            disconnect();
         }
     }
 }

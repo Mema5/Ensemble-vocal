@@ -101,7 +101,8 @@ function generateMenu($admin) {
 FIN;
 
     foreach ($page_list as $page) {
-        if ($admin || !$page['admin']) {
+        if (($admin && $page['name'] != 'adminlogin') || (!$page['admin']&& !$admin)) {
+            
             echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
             echo "</a></li>";
         }

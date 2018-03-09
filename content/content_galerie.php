@@ -1,8 +1,7 @@
 <html>
     <?php
     echo "<div class='container-fluid'>";
-    var_dump($_SESSION);
-    var_dump($_GET);
+
     
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {

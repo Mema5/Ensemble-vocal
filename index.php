@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-
-
-<?php
-session_name("Session de l'utilisateur");
-session_start();
+<?php session_name("SessionUtilisateur");session_start();
 if (!isset($_SESSION['initiated'])) {
     session_regenerate_id();
     $_SESSION['initiated'] = true;
@@ -16,18 +11,13 @@ $dbh = Database::connect();
 
 
 
-
 init_admin($dbh);
 
 
+var_dump($_SESSION);
 
-if (isset($_SESSION['admin'])) {
-    if ($_SESSION['admin']) {
-        
-    } else {
-        $_SESSION['admin'] = false;
-    }
-} else {
+
+if (!isset($_SESSION['admin'])) {
     $_SESSION['admin'] = false;
 }
 
@@ -41,11 +31,6 @@ if (array_key_exists('page', $_GET)) {
     $page = 'accueil';
 }
 
-if (array_key_exists('todo',$_GET)){
-    if ($_GET['todo']== 'disconnect') {
-        disconnect();
-    }
-}
 
 
 
@@ -117,5 +102,6 @@ generateMenu($_SESSION['admin']);
 <?php
 generateHTMLFooter();
 $dbh = null;
+
 ?>
 
