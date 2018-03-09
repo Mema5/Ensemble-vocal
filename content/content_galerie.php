@@ -1,10 +1,12 @@
 <html>
     <?php
     echo "<div class='container-fluid'>";
+
     $albums = Albums::getAlbums($dbh);
     //var_dump($albums);
     //var_dump($_SESSION);
     //var_dump($_POST);
+
     
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
