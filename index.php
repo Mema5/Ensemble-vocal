@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<?php session_name("SessionUtilisateur");session_start();
+<?php
+session_name("SessionUtilisateur");
+session_start();
 if (!isset($_SESSION['initiated'])) {
     session_regenerate_id();
     $_SESSION['initiated'] = true;
@@ -66,7 +68,10 @@ generateMenu($_SESSION['admin']);
 
 
 
-<div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png')">
+<div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png'); background-repeat: no-repeat; background-position:top center; background-size: contain; background-size:  auto 800px">
+    <a class="navbar-brand" ui-sref="index.home" href="index.php?page=accueil">
+        <img src="pictures/Logo.png" alt="logo" style="max-height: 100px;">
+    </a>
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
 </div>
 
@@ -75,9 +80,9 @@ generateMenu($_SESSION['admin']);
 
 
     <div id="content">
-        
-        
-        
+
+
+
         <div>
             <h1><?php echo $pageTitle ?></h1>
         </div>
@@ -90,7 +95,7 @@ generateMenu($_SESSION['admin']);
         ?>
     </div>
 
-    
+
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -103,6 +108,5 @@ generateMenu($_SESSION['admin']);
 <?php
 generateHTMLFooter();
 $dbh = null;
-
 ?>
 

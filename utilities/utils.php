@@ -79,56 +79,91 @@ function generateHTMLHeader($title, $links) {
         @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
         </style>
     <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <title>$title</title>
 FIN;
     foreach ($links as $link) {
         echo "<link href = '$link' rel = 'stylesheet'>";
     }
-    echo"</head><body>";
+    echo"</head><body><section id ='main-content' class='container ng-scope' ui-view style>";
 }
 
 function generateMenu($admin) {
+ 
 
-    //Generates a menu that corresponds to the page_list given in utils.php
+//Generates a menu that corresponds to the page_list given in utils.php
     global $page_list;
     echo <<<FIN
-    <!-- Static navbar -->
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
+    <header id="header" class="ng-scope">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                    <span class="icon-bar"></span>
+                </button> 
+            </div>
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav">
 FIN;
-
     foreach ($page_list as $page) {
-        if (($admin && $page['name'] != 'adminlogin') || (!$page['admin']&& !$admin)) {
-            
+        if ($page['name'] != 'accueil' && ($admin && $page['name'] != 'adminlogin') || (!$page['admin'] && !$admin)) {
             echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
             echo "</a></li>";
         }
     }
-    if ($admin){
-            echo "<li><a href='index.php?page=accueil&todo=disconnect'> Déconnexion";
-            echo "</a></li>";
-        }
-    //echo logButton();
-    echo"</ul></div></div></div>";
-}
+    if ($admin) {
+        echo "<li><a href='index.php?page=accueil&todo=disconnect'> Déconnexion";
+        echo "</a></li>";
+    }
+//echo logButton();
+    echo "</ul></div></div></nav></header>";
 
+//<!--Static navbar -->
+//<div
+//<div class = "navbar navbar-inverse navbar-fixed-top" role = "banner">
+//<div class = "container">
+//
+//<div class = "navbar-collapse collapse">
+//<ul class = "nav navbar-nav">
+//FIN;
+//
+//echo"<li><a class='navbar-brand' ui-sref='index.home' href='#'>
+//        <div class = navbar-header><img alt='Brand' src='pictures/Logo.png' style='max-height:80px'></div>
+//      </a></li>";
+//foreach ($page_list as $page) {
+//if ($page['name'] != 'accueil' && ($admin && $page['name'] != 'adminlogin') || (!$page['admin']&&!$admin)) {
+//
+//echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
+//echo "</a></li>";
+//}
+//}
+//if ($admin){
+//echo "<li><a href='index.php?page=accueil&todo=disconnect'> Déconnexion";
+//echo "</a></li>";
+//}
+////echo logButton();
+//echo"</ul></div></div></div>";
+
+
+}
 function generateHTMLFooter() {
-    
+
     echo <<<FIN
     <div id="footer">
         <p>Site réalisé en Modal par Louis Raison et Maël Madon</p>
 
     </div>
+    </section>
         </body>
         
     </html>
 FIN;
 }
 
-function disconnect(){
+function disconnect() {
     unset($_SESSION['loggedIn']);
-    $_SESSION['admin']=false;
+    $_SESSION['admin'] = false;
 }
