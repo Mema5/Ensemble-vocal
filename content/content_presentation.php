@@ -1,4 +1,4 @@
-<div class="row ng-scope">
+<div class="row ng-scope"> 
     <div class="col-md-6 col-sm-12">
 
         <div class="panel panel-default">
