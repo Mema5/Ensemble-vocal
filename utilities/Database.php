@@ -114,10 +114,7 @@ class Albums {
         $sth->execute(array($titre, $date, $description));
     }
 
-    public static function deleteAlbum($dbh, $titre) {
-        $sth = $dbh->prepare("DELETE FROM `albums` WHERE `titre`=?");
-        $sth->execute(array($titre));
-    }
+
 
 
 
