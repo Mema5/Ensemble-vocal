@@ -2,14 +2,18 @@
     <?php
     echo "<div class='container-fluid'>";
 
-    
+    $albums = Albums::getAlbums($dbh);
+    //var_dump($albums);
+    //var_dump($_SESSION);
+    //var_dump($_POST);
+
+
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
-        printFormAlbum();
+        printFormAlbum($albums);
     }
     
     // ---------- Affichage des albums photo ----------
-    $albums = Albums::getAlbums($dbh);
     $colonne = 1;
     foreach ($albums as $album) {
         if ($colonne==1) { 
@@ -31,33 +35,54 @@
 </html>
 
 <?php
-function printFormAlbum() {
+function printFormAlbum($albums) {
     echo <<<FIN
     <div class='row'>
-        <div class='col-md-4'>
+        <div class='col-md-6'>
             <div class='container-fluid'>
                 <div class='col-md-10 col-md-offset-1 noir'>
                 <h3>Créer un nouvel album</h3>
-                <form method="post">
-                    Nom de l'album photo : <input type='text' name='titre'><br>
-                    Date de l'album : <input type='date' name='date'><br>
-                    Description : <input type='text' name='description'><br>
-                    <input type="submit" value="envoyer">
+                
+                <form action="index.php?page=galerie_submit" method="post">
+                    <div class="form-group">
+                        <label for="album">Nom de l'album photo :</label>
+                        <input type='text' class="form-control" id="album" placeholder="Messe en si de Holiner" name='ajoutAlbum' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date de l'évènement :</label>
+                        <input type='date' class="form-control" id="date" name='dateAlbum' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description : </label>
+                        <textarea class="form-control" name="descriptionAlbum" id="description" rows="4" required>Court paragraphe sur le concert. Préciser le lieu, les solistes...</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer</button>
                 </form>
                 </div>
             </div>
         </div>
-        <div class='col-md-4'>
+        <div class='col-md-6'>
             <div class='container-fluid'>
                 <div class='col-md-10 col-md-offset-1 noir'>
                 <h3>Supprimer un album</h3>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='container-fluid'>
-                <div class='col-md-10 col-md-offset-1 noir'>
-                <h3>Bla</h3>
+    
+                <form action="index.php?page=galerie_submit" method="post" onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer l\'album et toutes les photos qui lui sont associées ?');">
+                    <div class="form-group">
+                        <label for="suppr">Selectionnez l'album à supprimer :</label> 
+                        <select name='deleteAlbum' class="form-control" id="suppr">
+FIN;
+    
+    // ---------- liste déroulante du nom des albums ----------
+    foreach ($albums as $album) {
+        echo "<option value='$album->id'>$album->titre, $album->date</option>";
+    }
+    
+    echo <<<FIN
+                
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Supprimer</button>
+                </form>
                 </div>
             </div>
         </div>
@@ -104,6 +129,7 @@ function printAlbum($album) {
         <div class='col-md-10 col-md-offset-1 noir'>
             <img class="img-responsive" src='pictures/album_defaut.png' alt="$album->titre">
             <h2>$album->titre</h2>
+            <h4>$album->date</h4>
             <p>$album->description</p>
         </div>
     </div>

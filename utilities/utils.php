@@ -32,6 +32,12 @@ $page_list = array(
         'admin' => false
     ),
     array(
+        'name' => 'galerie_submit',
+        'title' => 'Formulaire envoyé',
+        'menutitle' => 'hidden',
+        'admin' => true
+    ),
+    array(
         'name' => 'administration',
         'title' => 'Administration',
         'menutitle' => 'Administration',
@@ -109,9 +115,11 @@ function generateMenu($admin) {
                 <ul class="nav navbar-nav">
 FIN;
     foreach ($page_list as $page) {
+
         if ($page['name'] != 'accueil' && ($admin && $page['name'] != 'adminlogin') || (!$page['admin'] && !$admin)) {
             echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
             echo "</a></li>";
+
         }
     }
     if ($admin) {
@@ -165,5 +173,7 @@ FIN;
 
 function disconnect() {
     unset($_SESSION['loggedIn']);
+
     $_SESSION['admin'] = false;
+
 }
