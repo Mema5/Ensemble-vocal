@@ -184,23 +184,23 @@ class Concert {
         $sth->execute(array($id));
     }
 
-    public function print_concert() {
+    public function print_concert($admin) {
         echo <<<FIN
         
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="panel panel-default concert">
+            <div class="panel-heading" id = "concert$this->id">
                 <h2 class="panel-title">Concert du $this->date : $this->oeuvre à $this->lieu</h2>
+                <a href="#" class="afficherconcert">afficher/masquer</a>
             </div>
-            <div class="panel-body" id=$this->id>
+            <div class="panel-body description">
                 $this->description
-                
-            </div>
-            
-        </div>
-        
-        
 FIN;
+                if ($admin){
+                    echo"<a href=# class='remove-concert'>Supprimer</a>";
+                    echo"<a href=# class='modify-concert'>Modifier</a>";
+                }
+    echo "</div></div>";
     }
 
 }

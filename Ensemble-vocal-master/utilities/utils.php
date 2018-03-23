@@ -73,14 +73,14 @@ function getPageTitle($askedPage) {
 function generateHTMLHeader($title, $links) {
 
     echo <<<FIN
-    <html>
+    <html lang="fr">
         <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Nom de l'auteur"/>
-        <meta name="keywords" content="Mots clefs relatifs à cette page"/>
-        <meta name="description" content="Descriptif court"/>
+        <meta name="author" content="Louis Raison et Mael Madon"/>
+        <meta name="keywords" content="chorale polytechnique ensemble vocal patrice holiner"/>
+        <meta name="description" content="Site officiel de l'Ensemble Vocal de l'Ecole Polytechnique"/>
         <style>
         @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
         </style>
@@ -92,7 +92,7 @@ FIN;
     foreach ($links as $link) {
         echo "<link href = '$link' rel = 'stylesheet'>";
     }
-    echo"</head><body><section id ='main-content' class='container ng-scope' ui-view style>";
+    echo"</head><body><section id ='main-content' class='container ng-scope ui-view' style>";
 }
 
 function generateMenu($admin) {
@@ -102,13 +102,13 @@ function generateMenu($admin) {
     global $page_list;
     echo <<<FIN
     <header id="header" class="ng-scope">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> 
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar"> </span>
+                    <span class="icon-bar"> </span> 
+                    <span class="icon-bar"> </span>
                 </button> 
             </div>
             <div class="collapse navbar-collapse" id="navBar">
