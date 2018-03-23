@@ -38,6 +38,12 @@ $page_list = array(
         'admin' => true
     ),
     array(
+        'name' => 'galerie_album',
+        'title' => 'Photos du concert',
+        'menutitle' => 'hidden',
+        'admin' => false
+    ),
+    array(
         'name' => 'administration',
         'title' => 'Administration',
         'menutitle' => 'Administration',
