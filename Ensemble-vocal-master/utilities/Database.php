@@ -156,6 +156,7 @@ class Albums {
 
 class Concert {
     
+    public $id;
     public $oeuvre;
     public $titre;
     public $auteur;
@@ -163,7 +164,7 @@ class Concert {
     public $heure;
     public $description;
     public $lieu;
-    public $id;
+    
 
     public static function getConcerts($dbh) {
         $sth = $dbh->prepare("SELECT * FROM `concerts` ORDER BY `date` DESC");
@@ -191,9 +192,11 @@ class Concert {
             <div class="panel-heading">
                 <h2 class="panel-title">Concert du $this->date : $this->oeuvre à $this->lieu</h2>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id=$this->id>
                 $this->description
+                
             </div>
+            
         </div>
         
         

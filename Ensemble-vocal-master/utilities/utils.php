@@ -162,7 +162,7 @@ function generateHTMLFooter() {
 
     echo <<<FIN
     <div id="footer">
-        <p>Site réalisé en Modal par Louis Raison et Maël Madon</p>
+        <p>Site réalisé en Modal par Louis Rason et Maël Madon</p>
 
     </div>
     </section>
