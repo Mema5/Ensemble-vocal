@@ -47,7 +47,7 @@ if ($authorized) {
 }
 
 
-generateHTMLHeader($pageTitle, array("css/bootstrap.css","css/perso.css"));
+generateHTMLHeader($pageTitle, array("css/bootstrap.css", "css/perso.css", "css/bootstrap-social.css"));
 ?>
 
 
@@ -71,9 +71,9 @@ generateMenu($_SESSION['admin']);
 
 
 <div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png'); background-repeat: no-repeat; background-position:top center; background-size: contain; background-size:  auto 800px">
-    <a class="navbar-brand" href="index.php?page=accueil">
+    <!--<a class="navbar-brand" href="index.php?page=accueil">
         <img src="pictures/Logo.png" alt="logo" style="max-height: 100px;">
-    </a>
+    </a>-->
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
 </div>
 
@@ -86,7 +86,7 @@ generateMenu($_SESSION['admin']);
 
 
         <div>
-            <h1><?php echo $pageTitle?></h1>
+            <h1><?php echo $pageTitle ?></h1>
         </div>
         <?php
         if ($authorized) {
@@ -96,8 +96,6 @@ generateMenu($_SESSION['admin']);
         }
         ?>
     </div>
-
-
 
 </div>
 
