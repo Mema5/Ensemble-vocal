@@ -28,8 +28,8 @@ elseif (isset($_POST["deleteAlbum"])) {
     echo "<div class='row'>";
     $id = $_POST["deleteAlbum"];
     Albums::deleteAlbum($dbh, $id);
-    $titre = Albums::getTitle($dbh, $id);
-    echo "<h4>L'album " . $titre . " a bien été supprimé.</h4>";
+    $album = Albums::getAlbum($dbh, $id);
+    echo "<h4>L'album " . $album->titre . " a bien été supprimé.</h4>";
     echo '<a href="index.php?page=galerie" class="btn btn-primary" role="button">Retourner à la galerie</a>';
     echo "</div>";
 }
@@ -59,16 +59,18 @@ elseif (isset($_POST["addPhotosInAlbum"])) {
         if (!$test) {
              echo "<h4>Erreur : un des fichiers n'est pas au bon type !</h4>";
         } else {        
-            // création des photos dans la base de donnée
-            $cle = Photos::addPhotos($dbh, $nbPhoto, $currentAlbumId);
+            
 
-            // ajout des images dans les fichiers du site
             for ($i=0; $i<$nbPhoto; $i++) {
                 $temp = $_FILES['photos']['tmp_name'][$i];
                 $dec = explode(".", $_FILES['photos']['name'][$i]);
                 $ext = end($dec);
+
+                // création de la photo dans la base de donnée
+                $cle = Photos::addPhoto($dbh, $currentAlbumId, $ext);
+                
+                // ajout de l'image dans les fichiers du site
                 move_uploaded_file($temp, 'pictures/album'. $currentAlbumId .'_photo'. $cle .'.'. $ext );
-                $cle = $cle + 1;
             }
 
             echo "<h4>$nbPhoto photos ajoutées.</h4>";
@@ -101,7 +103,20 @@ elseif (isset($_POST["addPhotosInAlbum"])) {
 
 // Des photos ont été supprimées
 elseif (isset($_POST["deletePhoto"])) {
+    echo "<div class='row'>";
+    $clePhoto = $_POST["deletePhoto"];
+    $currentAlbumId = $_POST["currentAlbum"];
+    if ($clePhoto == 'all') {
+        Photos::deleteAll($dbh, $currentAlbumId);
+    }
+    else {
+        Photos::deletePhoto($dbh, $currentAlbumId, $clePhoto);
+    }
     
+    $album = Albums::getAlbum($dbh, $currentAlbumId);
+    echo "<h4>La(les) photos ont bien été supprimées de l'album " . $album->titre . ".</h4>";
+    echo '<a href="index.php?page=galerie" class="btn btn-primary" role="button">Retourner à la galerie</a>';
+    echo "</div>";
 }
 ?>
         
