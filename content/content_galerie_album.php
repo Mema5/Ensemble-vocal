@@ -11,7 +11,7 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
 
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
-        printFormPhoto($currentAlbumId);
+        printFormPhoto($currentAlbumId, $liste_photos);
         //Photos::deleteAll($dbh, $currentAlbumId);
     }
 ?>
@@ -44,31 +44,31 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
 </div>
 -->
 
-<div id="home" class="header">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
+<div id="gallery" style="display:none;">
 
-            <div class="item active">
-                <div class="container">
-                    <div id="slide1" class="masonry">
-
-                        <?php
-                        foreach ($liste_photos as $photo) {
-                            echo '<div class="post-box col-lg-4 col-md-4 col-sm-4">';
-                            echo '<img class="img-responsive" src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '" alt=' . $currentAlbum->titre . '>';
-                            echo '</div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    foreach ($liste_photos as $photo) {
+        echo '<img alt="Photo'.$photo->cle.'" ';
+        echo 'src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '" ';
+	echo 'data-image="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '">';
+    }
+    ?>
+ 
 </div>
+    
+<script type="text/javascript"> 
+
+        jQuery(document).ready(function(){ 
+                jQuery("#gallery").unitegallery();
+        }); 
+
+</script>
+
+
 
 <?php
 
-function printFormPhoto($currentAlbumId) {
+function printFormPhoto($currentAlbumId, $liste_photos) {
     echo <<<FIN
     
     <div class='row'>
