@@ -9,23 +9,126 @@ and open the template in the editor.
 */
 
 
-[class*="col-"].gris {
-    background-color: grey;
-    border:solid 1px white;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    
-}
 
-[class*="col-"].yellow {
-    background-color: #FFFF99;
-    border:solid 1px grey;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
 
 .title{
     font-family: 'Great Vibes', cursive;
-    
+    text-align: center;
+    margin-top: 50px
+
 }
 
+div{font-family: 'Gentium Basic', sans-serif;
+}
+
+.maincolors{
+    background-color:#37474F;
+    color:#ECEFF1
+}
+
+
+
+.secondary1{
+    background-color:#D50000;
+    color:#ECEFF1;
+}
+
+.secondary2{
+    background-color:#FF5252;
+    color:#ECEFF1;
+}
+
+.tertiary{
+    background-color: #ECEFF1;
+    color:#37474F
+}
+
+a:link{color:#ECEFF1;}
+a:hover{color:#CFD8DC;}
+a:visited{color:#ECEFF1;}
+a:active{color:#CFD8DC;}
+
+.fa {
+    border-radius: 50%;
+    width:50px;
+    font-size: 30px;
+}
+
+.button-row{
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0px 0px 30px;
+}
+
+.event{
+    box-shadow: 0px 0px 5px rgb(51, 51, 51);
+    box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0px 0px 30px;
+}
+
+.event-banner > .date-block >span{
+    display: none;
+}
+
+.event-banner > .date-block > .day {
+    display: block;
+    font-size:300%;
+    font-weight: 100;
+    line-height: 1;
+}
+.event-banner > .date-block > .month {
+    display: block;
+    font-size: 200%;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.event-banner >.date-block > .year{
+    display: block;
+    font-size: 150%;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.event-banner > .date-block {
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border: 2px;
+    border-color: #37474F
+}
+
+.event-banner >.img{
+    margin:0;
+    padding:0;
+}
+
+.social{
+    display: table-cell;
+    margin-top: 10px;
+    padding:0;
+}
+
+.informationsconcerts{
+    background-color: #ECEFF1;
+    color:#37474F;
+}
+
+hr.style14 { 
+  border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+}
+
+.map{
+    display: inline-block;
+    width:100%;
+    height:400px;
+    align-content: center;
+}

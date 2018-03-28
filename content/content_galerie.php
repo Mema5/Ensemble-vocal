@@ -127,8 +127,8 @@ function printAlbum($album) {
     echo <<<FIN
     <div class='container-fluid'>
         <div class='col-md-10 col-md-offset-1 noir'>
-            <a href="index.php?page=galerie_album&album=$album->id"><img class="img-responsive" src='pictures/album_defaut.png' alt="$album->titre"></a>
-            <h2><a href="index.php?page=galerie_album&album=$album->id">$album->titre</a></h2>
+            <img class="img-responsive" src='pictures/album_defaut.png' alt="$album->titre">
+            <h2>$album->titre</h2>
             <h4>$album->date</h4>
             <p>$album->description</p>
         </div>

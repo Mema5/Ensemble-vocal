@@ -9,6 +9,8 @@ if (!isset($_SESSION['initiated'])) {
 }
 require('utilities/utils.php');
 require('utilities/Database.php');
+
+
 $dbh = Database::connect();
 
 //Checks the admin.
@@ -45,7 +47,7 @@ if ($authorized) {
 }
 
 
-generateHTMLHeader($pageTitle, array("css/bootstrap.css", "css/perso.css"));
+generateHTMLHeader($pageTitle, array("css/bootstrap.css", "css/perso.css", "css/bootstrap-social.css"));
 ?>
 
 
@@ -69,9 +71,9 @@ generateMenu($_SESSION['admin']);
 
 
 <div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png'); background-repeat: no-repeat; background-position:top center; background-size: contain; background-size:  auto 800px">
-    <a class="navbar-brand" ui-sref="index.home" href="index.php?page=accueil">
-        <img src="pictures/Logo.png" alt="logo" style="max-height: 100px;">
-    </a>
+    <!--<a class="navbar-brand" href="index.php?page=accueil">
+        <img src="pictures/Logo.png" alt="logo" style="width:50px">
+    </a>-->
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
 </div>
 
@@ -95,13 +97,9 @@ generateMenu($_SESSION['admin']);
         ?>
     </div>
 
-
-
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.js"></script>
+
+
 
 
 
