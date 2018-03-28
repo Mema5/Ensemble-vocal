@@ -101,9 +101,12 @@ class Albums {
         return $liste_album;
     }
 
-    
-    public static function getTitle($dbh, $id) {
+    public static function getAlbum($dbh, $id) {
+        /*
+         * Retourne l'objet de classe Album correspondant au à l'id
+         */
         $sth = $dbh->prepare("SELECT `titre` FROM `albums` WHERE `id`=?");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Albums');
         $sth->execute(array($id));
         $alb = $sth->fetch();
         return $alb;
@@ -114,28 +117,53 @@ class Albums {
         $sth->execute(array($titre, $date, $description));
     }
 
-
-
-
-
-    
     public static function deleteAlbum($dbh, $id) {
         $sth = $dbh->prepare("DELETE FROM `albums` WHERE `id`=?");
-        $sth->execute(array($id));         
+        $sth->execute(array($id));
     }
-    
-    public static function addPhotos($dbh, $nbPhotos, $id_album) {
 
+}
+
+class Photos {
+
+    public $cle;
+    public $id_album;
+    public $ext;
+    
+    public static function getPhoto($dbh, $id_album, $clePhoto) {
         /*
-         * Créé $nbPhotos photos supplémentaires dans l'album $id_album
-         * Renvoie la clé de la première photo ajoutée
+         * Retourne l'objet photo correspondant à la clé $clePhoto
+         */
+        $sth = $dbh->prepare("SELECT * FROM `photos` WHERE (`photos`.`id_album` = ? AND `photos`.`cle` = ?)");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Photos');
+        $sth->execute(array($id_album, $clePhoto));
+        $photo = $sth->fetch();
+        return $photo;
+    }
+
+    public static function getPhotos($dbh, $id_album) {
+        /*
+         * Retourne la liste des photos de l'album sous forme d'une 
+         * liste d'objet de la classe Photos.
+         */
+        $sth = $dbh->prepare("SELECT * FROM `photos` WHERE (`photos`.`id_album` = ?)");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Photos');
+        $sth->execute(array($id_album));
+        $liste_photos = $sth->fetchAll();
+        return $liste_photos;
+    }
+
+    public static function addPhoto($dbh, $id_album, $ext) {
+        /*
+         * Créé une photos supplémentaires dans l'album $id_album
+         * Renvoie la clé de la photo ajoutée.
          */
 
         $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`id_album` = ?)");
-        
         $sth->execute(array($id_album));
         $cle_max = $sth->fetch();
         // cle_max[0] vaut la plus grande clé des photos de l'album ou NULL si pas de photo
+        
 
         if ($cle_max == NULL) {
             $cle_max = 0;
@@ -143,20 +171,68 @@ class Albums {
             $cle_max = (int) $cle_max[0];
         }
 
-        $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`id_album`) VALUES (?,?)");
-        for ($i=$cle_max+1; $i<=$cle_max+$nbPhotos; $i++) {
-            $sth->execute(array($i, $id_album));
-
-        }
+        $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`id_album`,`ext`) VALUES (?,?,?)");
+        $sth->execute(array($cle_max+1, $id_album, $ext));
 
         return $cle_max + 1;
+    }
+    
+
+//    public static function addPhotos($dbh, $nbPhotos, $id_album) {
+//        /*
+//         * Créé $nbPhotos photos supplémentaires dans l'album $id_album
+//         * Renvoie la clé de la première photo ajoutée
+//         */
+//
+//        $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`id_album` = ?)");
+//
+//        $sth->execute(array($id_album));
+//        $cle_max = $sth->fetch();
+//        // cle_max[0] vaut la plus grande clé des photos de l'album ou NULL si pas de photo
+//
+//        if ($cle_max == NULL) {
+//            $cle_max = 0;
+//        } else {
+//            $cle_max = (int) $cle_max[0];
+//        }
+//
+//        $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`id_album`) VALUES (?,?)");
+//        for ($i = $cle_max + 1; $i <= $cle_max + $nbPhotos; $i++) {
+//            $sth->execute(array($i, $id_album));
+//        }
+//
+//        return $cle_max + 1;
+//    }
+    
+    public static function addPhotos($dbh, $nbPhotos, $titre_album) {
+        /*
+         * Créé $nbPhotos photos supplémentaires dans l'album $titre_album
+         * Renvoie la clé de la première photo ajoutée
+         */
+        $sth = $dbh->prepare("SELECT max(`photos`.`cle`) FROM `photos` WHERE (`photos`.`titre_album` = ?)");
+        
+        foreach($liste_photos as $photo) {
+            Photos::deletePhoto($dbh, $photo->id_album, $photo->cle);
+        }
+    }
+    
+    public static function deletePhoto($dbh, $id_album, $clePhoto) {
+        /*
+         * Supprime la photos de la base de données et des fichiers.
+         */
+        $photo = Photos::getPhoto($dbh, $id_album, $clePhoto);
+        
+        $filename = 'pictures/album'. $id_album . '_photo'. $clePhoto . '.' . $photo->ext;
+        unlink($filename);
+        
+        $sth = $dbh->prepare("DELETE FROM `photos` WHERE `id_album`=? AND `cle` = ?");
+        $sth->execute(array($id_album, $clePhoto));
     }
 
 }
 
-class Concert {
-    
-    public $id;
+class Concerts{
+  public $id;
     public $oeuvre;
     public $titre;
     public $auteur;
@@ -297,9 +373,6 @@ FIN;
 
                
 }
-
-}
-
 
 ?>
 
