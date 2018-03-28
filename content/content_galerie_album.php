@@ -2,7 +2,7 @@
 $albums = Albums::getAlbums($dbh);
 //if (isset($_GET["album"]))
 $currentAlbumId = $_GET["album"];
-$currentAlbum = Albums::getTitle($dbh, $currentAlbumId);
+$currentAlbum = Albums::getAlbum($dbh, $currentAlbumId);
 //var_dump($currentAlbum);
 //var_dump($currentAlbumId);
 
@@ -11,8 +11,8 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
 
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
-        printFormPhoto($currentAlbumId);
-        Photos::deleteAll($dbh, $currentAlbumId);
+        printFormPhoto($currentAlbumId, $liste_photos);
+        //Photos::deleteAll($dbh, $currentAlbumId);
     }
 ?>
 
@@ -44,31 +44,31 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
 </div>
 -->
 
-<div id="home" class="header">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
+<div id="gallery" style="display:none;">
 
-            <div class="item active">
-                <div class="container">
-                    <div id="slide1" class="masonry">
-
-                        <?php
-                        foreach ($liste_photos as $photo) {
-                            echo '<div class="post-box col-lg-4 col-md-4 col-sm-4">';
-                            echo '<img class="img-responsive" src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.jpg" alt=' . $currentAlbum->titre . '>';
-                            echo '</div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    foreach ($liste_photos as $photo) {
+        echo '<img alt="Photo'.$photo->cle.'" ';
+        echo 'src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '" ';
+	echo 'data-image="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '">';
+    }
+    ?>
+ 
 </div>
+    
+<script type="text/javascript"> 
+
+        jQuery(document).ready(function(){ 
+                jQuery("#gallery").unitegallery();
+        }); 
+
+</script>
+
+
 
 <?php
 
-function printFormPhoto($currentAlbumId) {
+function printFormPhoto($currentAlbumId, $liste_photos) {
     echo <<<FIN
     
     <div class='row'>
@@ -103,8 +103,19 @@ function printFormPhoto($currentAlbumId) {
     
                 <form action="index.php?page=galerie_submit" method="post" onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer l\'album et toutes les photos qui lui sont associées ?');">
                     <div class="form-group">
-                        <label for="suppr">Selectionnez les photos à supprimer :</label> 
-                        <select name='deletePhoto' class="form-control" id="suppr">  
+                        <label for="suppr">Selectionnez les photos à supprimer :</label>
+                        <input type="hidden" name="currentAlbum" value=$currentAlbumId>
+                        <select name='deletePhoto' class="form-control" id="suppr">
+                        <option value='all'>-Toutes les photos-</option>
+FIN;
+    
+                        // ---------- liste déroulante des photos ----------
+                        foreach ($liste_photos as $photo) {
+                            echo "<option value='$photo->cle'>Photo $photo->cle</option>";
+                        }
+
+                        echo <<<FIN
+                
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Supprimer</button>
