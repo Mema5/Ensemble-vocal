@@ -101,11 +101,11 @@ function printFormPhoto($currentAlbumId, $liste_photos) {
                 <div class='col-md-10 col-md-offset-1 noir'>
                 <h3>Supprimer des photos</h3>
     
-                <form action="index.php?page=galerie_submit" method="post" onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer l\'album et toutes les photos qui lui sont associées ?');">
+                <form action="index.php?page=galerie_submit" method="post" onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer les photos selectionnées ?');">
                     <div class="form-group">
                         <label for="suppr">Selectionnez les photos à supprimer :</label>
                         <input type="hidden" name="currentAlbum" value=$currentAlbumId>
-                        <select name='deletePhoto' class="form-control" id="suppr">
+                        <select name='deletePhoto' class="form-control" id="suppr" multiple>
                         <option value='all'>-Toutes les photos-</option>
 FIN;
     

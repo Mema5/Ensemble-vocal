@@ -1,7 +1,7 @@
 <?php
 
 echo "<div class='container-fluid'>";
-var_dump($_POST);
+// var_dump($_POST);
 
 // Un album a été créé
 if (isset($_POST["ajoutAlbum"])OR isset($_POST["dateAlbum"])OR isset($_POST["descriptionAlbum"])) {
@@ -115,7 +115,7 @@ elseif (isset($_POST["deletePhoto"])) {
     
     $album = Albums::getAlbum($dbh, $currentAlbumId);
     echo "<h4>La(les) photos ont bien été supprimées de l'album " . $album->titre . ".</h4>";
-    echo '<a href="index.php?page=galerie" class="btn btn-primary" role="button">Retourner à la galerie</a>';
+    echo '<a href="index.php?page=galerie_album&album='. $currentAlbumId .'" class="btn btn-primary" role="button">Retourner à l\'album</a>';
     echo "</div>";
 }
 ?>
