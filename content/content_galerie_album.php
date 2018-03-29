@@ -12,43 +12,18 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
         printFormPhoto($currentAlbumId, $liste_photos);
-        //Photos::deleteAll($dbh, $currentAlbumId);
     }
+
+
+// ---------- Affichage des photos ----------
 ?>
-
-<!--
-<div class="navbar-wrapper">
-    <div class="container">
-        <div class="navbar navbar-inverse" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Photo Album Gallery</a>
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right text-center">
-                        <li id="s1" class="clink">
-                            <a href="#" data-target="#myCarousel" data-slide-to="0" class="active">Album 1</a>
-                        </li>
-                        <li id="s2" class="clink"><a href="#" data-target="#myCarousel" data-slide-to="1">Album 2</a></li>
-                        <li id="s3" class="clink"><a href="#" data-target="#myCarousel" data-slide-to="2">Album 3</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
 <div id="gallery" style="display:none;">
 
     <?php
     foreach ($liste_photos as $photo) {
         echo '<img alt="Photo'.$photo->cle.'" ';
+        //quand l'upload miniature fonctionne
+        //echo 'src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'_petit.'. $photo->ext . '" ';
         echo 'src="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '" ';
 	echo 'data-image="pictures/album'. $currentAlbumId . '_photo'. $photo->cle .'.'. $photo->ext . '">';
     }

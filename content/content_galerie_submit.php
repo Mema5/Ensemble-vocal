@@ -4,22 +4,24 @@ echo "<div class='container-fluid'>";
 // var_dump($_POST);
 
 // Un album a été créé
-if (isset($_POST["ajoutAlbum"])OR isset($_POST["dateAlbum"])OR isset($_POST["descriptionAlbum"])) {
+if (isset($_POST["ajoutAlbum"])OR isset($_POST["dateAlbum"])OR isset($_POST["lieu"])) {
     echo "<div class='row'>";
 
     // Vérifie si toutes les infos ont bien été rentrées
-    if (isset($_POST["ajoutAlbum"])AND isset($_POST["dateAlbum"])AND isset($_POST["descriptionAlbum"])) {
+    if (isset($_POST["ajoutAlbum"])AND isset($_POST["dateAlbum"])AND isset($_POST["lieu"])) {
         $titre = $_POST["ajoutAlbum"];
 
         // ajout dans la base de donnée
-        Albums::addAlbum($dbh, $titre, $_POST["dateAlbum"], $_POST["descriptionAlbum"]);
+        $album = Albums::addAlbum($dbh, $titre, $_POST["dateAlbum"], $_POST["lieu"]);
         echo "<h4>L'album " . $titre . " a bien été créé. Ajoutez maintenant des photos !</h4>";
                 
     } else {
         echo "<h4>Tous les champs n'ont pas été remplis !</h4>";
     }
-    
+
     echo '<a href="index.php?page=galerie" class="btn btn-primary" role="button">Retourner à la galerie</a>';
+    echo '                         	';
+    echo '<a href="index.php?page=galerie_album&album='.$album->id.'" class="btn btn-success" role="button">Ajouter des photos</a>';
     echo "</div>";
 }
 
@@ -27,8 +29,8 @@ if (isset($_POST["ajoutAlbum"])OR isset($_POST["dateAlbum"])OR isset($_POST["des
 elseif (isset($_POST["deleteAlbum"])) {
     echo "<div class='row'>";
     $id = $_POST["deleteAlbum"];
-    Albums::deleteAlbum($dbh, $id);
     $album = Albums::getAlbum($dbh, $id);
+    Albums::deleteAlbum($dbh, $id);
     echo "<h4>L'album " . $album->titre . " a bien été supprimé.</h4>";
     echo '<a href="index.php?page=galerie" class="btn btn-primary" role="button">Retourner à la galerie</a>';
     echo "</div>";
@@ -37,7 +39,7 @@ elseif (isset($_POST["deleteAlbum"])) {
 // Des photos ont été rajoutées
 elseif (isset($_POST["addPhotosInAlbum"])) {
     echo "<div class='row'>";
-        var_dump($_FILES);
+    //var_dump($_FILES);
     
     $currentAlbumId = $_POST["addPhotosInAlbum"];
     if (empty($_FILES['photos']['tmp_name'])) {
@@ -48,9 +50,9 @@ elseif (isset($_POST["addPhotosInAlbum"])) {
         
         // vérifications de type
         $test = true;
-        $allowedExtensions = array("png", "gif", "jpg", "jpeg");
+        $allowedExtensions = array("png", "PNG", "gif", "jpg", "jpeg", "JPG", "JPEG");
         echo "file name";
-        var_dump($_FILES['photos']['name']);
+        //var_dump($_FILES['photos']['name']);
         foreach($_FILES['photos']['name'] as $fileName) {
             $dec = explode(".", $fileName);
             $test = $test && in_array(end($dec), $allowedExtensions);
@@ -62,15 +64,60 @@ elseif (isset($_POST["addPhotosInAlbum"])) {
             
 
             for ($i=0; $i<$nbPhoto; $i++) {
+                
                 $temp = $_FILES['photos']['tmp_name'][$i];
+                
                 $dec = explode(".", $_FILES['photos']['name'][$i]);
                 $ext = end($dec);
+                if ($ext == "jpg" || $ext == "JPG" || $ext == "jpeg" || $ext == "JPEG")
+                    $ext = "jpg";
+                elseif ($ext == "PNG" || $ext == "png")
+                    $ext = "png";
 
                 // création de la photo dans la base de donnée
                 $cle = Photos::addPhoto($dbh, $currentAlbumId, $ext);
                 
-                // ajout de l'image dans les fichiers du site
-                move_uploaded_file($temp, 'pictures/album'. $currentAlbumId .'_photo'. $cle .'.'. $ext );
+                // ajout de l'image HD dans les fichiers du site
+                $cheminHD = 'pictures/album'. $currentAlbumId .'_photo'. $cle .'.'. $ext ;
+
+                move_uploaded_file($temp, $cheminHD);
+
+                
+                // reduction de l'image
+                /*
+                $cheminLD = 'pictures/album'. $currentAlbumId .'_photo'. $cle .'_petit.'. $ext ;
+                $newWidth = 300;
+                list($widthOrig, $heightOrig) = getimagesize($cheminHD);
+                $ratio = $widthOrig / $newWidth;
+                $newHeight = $heightOrig / $ratio;
+                //echo "<h4>avant create".memory_get_usage()."</h4>";
+                $tmpPhotoLD = imagecreatetruecolor($newWidth, $newHeight);
+                
+                //echo "<h4>avant imagecreate".memory_get_usage()."</h4>";
+                switch($ext){
+                    // imagecreatefromjpeg décompresse la photo donc surcharge la mémoire....
+                    case 'jpg': $image = imagecreatefromjpeg($cheminHD); break;
+                    case 'png': $image = imagecreatefrompng($cheminHD); break;
+                    case 'gif': $image = imagecreatefromgif($cheminHD); break;
+                }
+                //echo "<h4>après imagecreate".memory_get_usage()."</h4>";
+                
+                    // preserve la transparence
+                if($ext == "gif" or $ext == "png"){
+                    imagecolortransparent($tmpPhotoLD, imagecolorallocatealpha($tmpPhotoLD, 0, 0, 0, 127));
+                    imagealphablending($tmpPhotoLD, false);
+                    imagesavealpha($tmpPhotoLD, true);
+                }
+                    
+                imagecopyresampled($tmpPhotoLD, $image, 0, 0, 0, 0, $newWidth, $newHeight, $widthOrig, $heightOrig);
+                    
+                switch($ext){
+                    case 'jpg': imagejpeg($tmpPhotoLD, $cheminLD, 100); break;
+                    case 'png': imagepng($tmpPhotoLD, $cheminLD, 100); break;
+                    case 'gif': imagegif($tmpPhotoLD, $cheminLD, 100); break;
+                }
+                 *
+                 */
             }
 
             echo "<h4>$nbPhoto photos ajoutées.</h4>";
