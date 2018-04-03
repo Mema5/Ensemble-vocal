@@ -22,13 +22,13 @@ $page_list = array(
     array(
         'name' => 'membres',
         'title' => 'Espace membres',
-        'menutitle' => 'Membres',
+        'menutitle' => 'hidden',
         'admin' => false
     ),
     array(
         'name' => 'galerie',
         'title' => 'Galerie des concerts passés',
-        'menutitle' => 'Galerie',
+        'menutitle' => 'Galerie photo',
         'admin' => false
     ),
     array(
@@ -46,7 +46,7 @@ $page_list = array(
     array(
         'name' => 'contact',
         'title' => 'Nous contacter',
-        'menutitle' => 'Contact',
+        'menutitle' => 'Contactez-nous',
         'admin' => false
     ),
     array(
@@ -95,10 +95,10 @@ function generateHTMLHeader($title, $links) {
         <meta name="description" content="Site officiel de l'Ensemble Vocal de l'Ecole Polytechnique"/>
         <style>
         
-   @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+    @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
         </style>
 
-   <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet"> 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -267,7 +267,7 @@ function generateHTMLFooter() {
                         <a href="#!">A propos</a>
                     </li>
                     <li>
-                        <a href="#!">Contactez-nous</a>
+                        <a href="index.php?page=contact">Contactez-nous</a>
                     </li>
                 </ul>
             </div>
