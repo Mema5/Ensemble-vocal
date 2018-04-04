@@ -20,6 +20,12 @@ $page_list = array(
         'admin' => false
     ),
     array(
+        'name' => 'reservation',
+        'title' => 'Réservez vos places',
+        'menutitle' => 'hidden',
+        'admin' => false
+    ),
+    array(
         'name' => 'membres',
         'title' => 'Espace membres',
         'menutitle' => 'hidden',
@@ -167,7 +173,8 @@ FIN;
     foreach ($links as $link) {
         echo "<link href = '$link' rel = 'stylesheet'>";
     }
-    echo"</head><body><section id ='main-content' class='container ng-scope ui-view' style>";
+    echo"</head>";
+    echo "<body><section id ='main-content' class='container ng-scope ui-view' style>";
 }
 
 function generateMenu($admin) {

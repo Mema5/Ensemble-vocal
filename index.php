@@ -70,20 +70,19 @@ generateMenu($_SESSION['admin']);
 
 
 
-<div class="jumbotron" style = "color : white; background-image : url('pictures/sorbonne.png'); background-repeat: no-repeat; background-position:top center; background-size: contain; background-size:  auto 800px">
+<div class="jumbotron" 
+     style = "color : white; background-image : url('pictures/sorbonne.png'); 
+     background-repeat: no-repeat; background-position:top center; 
+     background-size: contain; background-size:  auto 800px">
     <!--<a class="navbar-brand" href="index.php?page=accueil">
         <img src="pictures/Logo.png" alt="logo" style="width:50px">
     </a>-->
     <h1 class="title">Ensemble Vocal de l'École polytechnique</h1>
 </div>
 
-<div class="container">
-
-
+<div class="container-fluid">
 
     <div id="content">
-
-
 
         <div>
             <h1><?php echo $pageTitle ?></h1>
