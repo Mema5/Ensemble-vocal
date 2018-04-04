@@ -1,7 +1,9 @@
 <div class='row'>
     <div class="col-md-4">
         <h3>Nous écrire :</h3>
+
         <h4><a class = "content-link" href='mailto:bureau@chorale.polytechnique.org'>bureau@chorale.polytechnique.org</a></h4>
+
 
         <h3>Nous suivre :</h3>
         <!--Social buttons-->
