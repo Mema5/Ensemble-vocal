@@ -29,8 +29,8 @@ div{font-family: 'Gentium Basic', sans-serif;
 
 
 .secondary1{
-    background-color:#D50000;
-    color:#ECEFF1;
+    background-color:#ECEFF1;
+    color:#37474F;
 }
 
 .secondary2{
@@ -43,10 +43,38 @@ div{font-family: 'Gentium Basic', sans-serif;
     color:#37474F
 }
 
-a:link{color:#ECEFF1;}
-a:hover{color:#CFD8DC;}
-a:visited{color:#ECEFF1;}
-a:active{color:#CFD8DC;}
+.content-colors{
+    color:#263238
+}
+
+a.menuButton{
+    color:#ECEFF1;
+}
+
+a.menuButton:click{
+    color:#ECEFF1;
+}
+
+a.menuButton:hover{
+    color:#37474F;
+}
+
+a.content-link{
+    color:#37474F;
+}
+
+a.content-link:hover{
+    color:black;
+}
+
+a.footerButton{
+    color:#ECEFF1;
+}
+
+a.footerButton:hover{
+    color:#CFD8DC;
+}
+
 
 .fa {
     border-radius: 50%;
@@ -116,6 +144,8 @@ a:active{color:#CFD8DC;}
     background-color: #ECEFF1;
     color:#37474F;
 }
+
+
 
 hr.style14 { 
   border: 0; 

@@ -228,8 +228,16 @@ class Concert{
         $sth = $dbh->prepare("SELECT * FROM `concerts` ORDER BY `date` DESC");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Concert');
         $sth->execute();
-        $liste_album = $sth->fetchAll();
-        return $liste_album;
+        $liste_concerts = $sth->fetchAll();
+        return $liste_concerts;
+    }
+    
+    public static function getConcert($dbh,$id){
+        $sth = $dbh->prepare("SELECT * FROM `concerts`  WHERE `id`= ?");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Concert');
+        $sth->execute(array($id));
+        $concert = $sth->fetchAll();
+        return $concert;
     }
 
     public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu) {
@@ -290,8 +298,10 @@ class Concert{
     </div>
 </div>
 <div class="row event-description tertiary">
+<hr class="style14">
+<br>
     <div class="row presentation-row">
-        <div class="col-md-9 presentation">
+        <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-8 presentation">
             <h3>Présentation :</h3>
             $description
         </div>
@@ -328,7 +338,7 @@ FIN;
     }
     else{
         echo<<<FIN
-        <div class="col-xs-12">
+        <div class="col-xs-offset-1 col-xs-11 adresse">
             <h3>Adresse : </h3>
             1 avenue Charles de Gaulle, 75000 Paris.
         </div>

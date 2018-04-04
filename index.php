@@ -81,7 +81,7 @@ generateMenu($_SESSION['admin']);
 
 
 
-    <div id="content">
+    <div id="content content-colors">
 
 
 
