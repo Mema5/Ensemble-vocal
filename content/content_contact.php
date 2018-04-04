@@ -27,8 +27,8 @@
     </div>
     <div class="col-md-4">
         <h2>Liens amis</h2>
-        <h4>Site de l'orchestre Ostinato ?</h4>
-        <h4>Page FB/YouTube de Yun-Ho ?</h4>
+        <h4>L'<a href="http://ostinato.fr/">Orchestre Ostinato</a> qui nous accompagne pour la plupart de nos concerts avec orchestre.</h4>
+        <h4>La <a href="https://www.youtube.com/channel/UCKCGXGyDXG_Cxxl2FIrVzLQ/">chaine YouTube</a> de Yun-Ho, notre pianiste de répétion.</h4>
     </div>
 </div>
 <div class='row'>

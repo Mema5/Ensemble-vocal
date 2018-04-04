@@ -367,6 +367,37 @@ FIN;
 }
 }
 
+class Bureau {
+    
+    public $id;
+    public $nom;
+    public $prenom;
+    public $fonction;
+    public $promotion;
+    
+    public static function getBureau($dbh, $promotion) {
+        $sth = $dbh->prepare("SELECT * FROM `bureaux` WHERE (`bureaux`.`promotion` = ?");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Bureau');
+        $sth->execute(array($promotion));
+        $bureau = $sth->fetch();
+        return $bureau;
+    }
+    
+    public static function getLastPromo($dbh) {
+        $sth = $dbh->prepare("SELECT max(`promotion`) FROM `bureaux`");
+        $sth->execute();
+        $promo = $sth->fetch();
+        return $promo[0];
+    }
+    
+    public static function addMembre($dbh, $promotion, $nom, $prenom, $fonction) {
+        /*
+         * Ajoute le membre du bureau dans la base de donnée
+         */
+        $sth = $dbh->prepare("INSERT INTO `bureaux` (`promotion`, `nom`, `prenom`, `fonction`) VALUES (?,?,?,?)");
+        $sth->execute(array($promotion, $nom, $prenom, $fonction));       
+    }
+}
 ?>
 
 
