@@ -231,7 +231,7 @@ class Photos {
 
 }
 
-class Concerts{
+class Concert{
   public $id;
     public $oeuvre;
     public $titre;
@@ -373,7 +373,7 @@ FIN;
 
                
 }
-
+}
 ?>
 
 
