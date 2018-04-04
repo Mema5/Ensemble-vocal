@@ -45,8 +45,8 @@ $page_list = array(
     ),
     array(
         'name' => 'contact',
-        'title' => 'Nous contacter',
-        'menutitle' => 'Contactez-nous',
+        'title' => 'Informations pratiques',
+        'menutitle' => 'Infos pratiques',
         'admin' => false
     ),
     array(
