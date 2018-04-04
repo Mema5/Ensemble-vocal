@@ -109,7 +109,8 @@ function generateHTMLHeader($title, $links) {
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- ... Unite Gallery ... -->	
+    <!-- ... Unite Gallery ... -->
+            <!--
     <script type='text/javascript' src='unitegallery/js/jquery-11.0.min.js'></script>	
     <script type='text/javascript' src='unitegallery/js/ug-common-libraries.js'></script>	
     <script type='text/javascript' src='unitegallery/js/ug-functions.js'></script>
@@ -132,8 +133,32 @@ function generateHTMLHeader($title, $links) {
     <script type='text/javascript' src='unitegallery/js/ug-lightbox.js'></script>
     <script type='text/javascript' src='unitegallery/js/ug-carousel.js'></script>
     <script type='text/javascript' src='unitegallery/js/ug-api.js'></script>
+            -->
+    <script src='unitegallery/js/jquery-11.0.min.js'></script>	
+    <script src='unitegallery/js/ug-common-libraries.js'></script>	
+    <script src='unitegallery/js/ug-functions.js'></script>
+    <script src='unitegallery/js/ug-thumbsgeneral.js'></script>
+    <script src='unitegallery/js/ug-thumbsstrip.js'></script>
+    <script src='unitegallery/js/ug-touchthumbs.js'></script>
+    <script src='unitegallery/js/ug-panelsbase.js'></script>
+    <script src='unitegallery/js/ug-strippanel.js'></script>
+    <script src='unitegallery/js/ug-gridpanel.js'></script>
+    <script src='unitegallery/js/ug-thumbsgrid.js'></script>
+    <script src='unitegallery/js/ug-tiles.js'></script>
+    <script src='unitegallery/js/ug-tiledesign.js'></script>
+    <script src='unitegallery/js/ug-avia.js'></script>
+    <script src='unitegallery/js/ug-slider.js'></script>
+    <script src='unitegallery/js/ug-sliderassets.js'></script>
+    <script src='unitegallery/js/ug-touchslider.js'></script>
+    <script src='unitegallery/js/ug-zoomslider.js'></script>	
+    <script src='unitegallery/js/ug-video.js'></script>
+    <script src='unitegallery/js/ug-gallery.js'></script>
+    <script src='unitegallery/js/ug-lightbox.js'></script>
+    <script src='unitegallery/js/ug-carousel.js'></script>
+    <script src='unitegallery/js/ug-api.js'></script>
+            
     <link rel='stylesheet' href='unitegallery/css/unite-gallery.css' type='text/css' />
-    <script type='text/javascript' src='unitegallery/themes/tiles/ug-theme-tiles.js'></script>
+    <script src='unitegallery/themes/tiles/ug-theme-tiles.js'></script>
     <link rel='stylesheet' 		  href='unitegallery/themes/default/ug-theme-default.css' type='text/css' />
     <!-- ... End Unite Gallery ... -->
     

@@ -9,12 +9,12 @@
         <ul class="list-unstyled list-inline">
             <li class="list-inline-item">
                 <a class="btn-floating btn-bg btn-yt mx-1" href="https://www.facebook.com/ensembleVocalEcolePolytechnique/">
-                    <i><img src="pictures/Facebook-logo-f.png" height="70"></i>
+                    <i><img src="pictures/Facebook-logo-f.png" alt="logo-facebook" height="70"></i>
                 </a>
             </li>
             <li class="list-inline-item">
                 <a class="btn-floating btn-bg btn-yt mx-1" href="https://www.youtube.com/channel/UCwWtVb5arM-E14CcHeq17yQ">
-                    <i><img src="pictures/YouTube-logo.png" height="50"></i>
+                    <i><img src="pictures/YouTube-logo.png" alt="logo-youtybe" height="50"></i>
                 </a>
             </li>
         </ul>
