@@ -61,7 +61,7 @@ $page_list = array(
         'menutitle' => 'hidden',
         'admin' => false
     ),
-
+    array(
         'name' => 'concert',
         'title' => 'Description du Concert',
         'menutitle' => 'hidden',
