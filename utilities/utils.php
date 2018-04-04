@@ -66,6 +66,12 @@ $page_list = array(
         'title' => 'Espace Administration',
         'menutitle' => 'hidden',
         'admin' => false
+    ),
+    array(
+        'name' => 'concert',
+        'title' => 'Description du Concert',
+        'menutitle' => 'hidden',
+        'admin' => false
     )
 );
 
@@ -206,7 +212,7 @@ FIN;
         if ($admin && $page['name'] != 'adminlogin' || (!$page['admin'] && !$admin)) {
             // Titres du menu
             if ($page['menutitle'] != "hidden") {
-                echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
+                echo "<li><a class='menuButton' href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
                 echo "</a></li>";
             }
         }
@@ -230,7 +236,9 @@ FIN;
     if ($admin) {
         // Sign out
         echo <<<FIN
-        <li><a href="index.php?page=accueil&todo=disconnect">
+
+        <li><a class="menuButton" href="index.php?page=accueil&todo=disconnect">
+
             <svg width="17" height="17" fill="white" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
             <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
             <g><path d="M764,152.1c30.9,22,58.3,46.8,82.4,74.6c24,27.8,44.6,57.8,61.8,90.1c17.2,32.3,30.2,66.4,39.1,102.4c8.9,36,13.4,72.6,13.4,109.6c0,63.8-12.2,123.7-36.5,179.6c-24.4,55.9-57.3,104.7-98.8,146.2c-41.5,41.5-90.2,74.5-146.2,98.8C623.2,977.8,563.3,990,499.5,990c-63.1,0-122.7-12.2-178.6-36.5c-55.9-24.4-104.8-57.3-146.7-98.8c-41.9-41.5-74.8-90.2-98.8-146.2c-24-55.9-36-115.8-36-179.6c0-36.4,4.3-72.1,12.9-107.1c8.6-35,20.8-68.3,36.5-99.9c15.8-31.6,35.3-61.1,58.7-88.5c23.3-27.5,49.4-52.2,78.2-74.1c15.1-11,31.4-15.1,48.9-12.4c17.5,2.8,31.7,11.3,42.7,25.7c11,14.4,15.1,30.5,12.4,48.4c-2.8,17.8-11.3,32.3-25.7,43.2c-43.2,31.6-76.4,70.3-99.3,116.3c-23,46-34.5,95.4-34.5,148.2c0,45.3,8.6,88,25.7,128.2c17.2,40.1,40.7,75.1,70.5,105c29.9,29.9,64.9,53.5,105,71c40.1,17.5,82.9,26.2,128.2,26.2c45.3,0,88-8.7,128.2-26.2c40.1-17.5,75.2-41.2,105-71c29.9-29.9,53.5-64.8,71-105c17.5-40.1,26.2-82.9,26.2-128.2c0-53.5-12.3-104.1-37.1-151.8c-24.7-47.7-59.4-87-104-117.9c-15.1-10.3-24.2-24.4-27.3-42.2c-3.1-17.8,0.5-34.3,10.8-49.4c10.3-14.4,24.4-23.2,42.2-26.2C732.5,138.2,748.9,141.8,764,152.1L764,152.1z M499.5,531.9c-17.8,0-33.1-6.3-45.8-19c-12.7-12.7-19-28-19-45.8V75.9c0-17.8,6.3-33.3,19-46.3c12.7-13,28-19.6,45.8-19.6c18.5,0,34.1,6.5,46.8,19.6c12.7,13,19,28.5,19,46.3v391.2c0,17.8-6.3,33.1-19,45.8C533.6,525.6,518,531.9,499.5,531.9L499.5,531.9z"/></g>
@@ -241,39 +249,19 @@ FIN;
 //echo logButton();
     echo "</ul></div></div></nav></header>";
 
-//<!--Static navbar -->
-//<div
-//<div class = "navbar navbar-inverse navbar-fixed-top" role = "banner">
-//<div class = "container">
-//
-//<div class = "navbar-collapse collapse">
-//<ul class = "nav navbar-nav">
-//FIN;
-//
-//echo"<li><a class='navbar-brand' ui-sref='index.home' href='#'>
-//        <div class = navbar-header><img alt='Brand' src='pictures/Logo.png' style='max-height:80px'></div>
-//      </a></li>";
-//foreach ($page_list as $page) {
-//if ($page['name'] != 'accueil' && ($admin && $page['name'] != 'adminlogin') || (!$page['admin']&&!$admin)) {
-//
-//echo "<li><a href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
-//echo "</a></li>";
-//}
-//}
-//if ($admin){
-//echo "<li><a href='index.php?page=accueil&todo=disconnect'> Déconnexion";
-//echo "</a></li>";
-//}
-////echo logButton();
-//echo"</ul></div></div></div>";
+
 
 
 }
 function generateHTMLFooter() {
-
+//Generates the footer for each page
     echo <<<FIN
     </section>
     <!--Footer-->
+    
+<div class="row">
+    <div class="col-xs-12"></div>
+</div>
 
 <footer class="page-footer font-small pt-4 mt-4 maincolors" >
 
@@ -285,10 +273,10 @@ function generateHTMLFooter() {
                 <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Autour de l'Ensemble Vocal</h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a class="mainlinks" href="#!">Nos partenaires</a>
+                        <a class="footerButton" href="#!">Nos partenaires</a>
                     </li>
                     <li>
-                        <a href="#!">L'École Polytechnique</a>
+                        <a class="footerButton" href="#!">L'École polytechnique</a>
                     </li>
                 </ul>
             </div>
@@ -296,10 +284,12 @@ function generateHTMLFooter() {
                 <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Liens utiles</h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">A propos</a>
+                        <a class = "footerButton" href="#!">A propos</a>
                     </li>
                     <li>
-                        <a href="index.php?page=contact">Contactez-nous</a>
+
+                        <a class = "footerButton" href="index.php?page=contact">Contactez-nous</a>
+
                     </li>
                 </ul>
             </div>
@@ -314,12 +304,12 @@ function generateHTMLFooter() {
     <div class="text-center">
         <ul class="list-unstyled list-inline">
             <li class="list-inline-item">
-                <a class="btn-floating btn-bg btn-fb mx-1" href="https://www.facebook.com/ensembleVocalEcolePolytechnique/">
+                <a class="footerButton btn-floating btn-bg btn-fb mx-1" href="https://www.facebook.com/ensembleVocalEcolePolytechnique/">
                     <i class="fa fa-facebook"> </i>
                 </a>
             </li>
             <li class="list-inline-item">
-                <a class="btn-floating btn-bg btn-yt mx-1" href="https://www.youtube.com/channel/UCwWtVb5arM-E14CcHeq17yQ">
+                <a class="footerButton btn-floating btn-bg btn-yt mx-1" href="https://www.youtube.com/channel/UCwWtVb5arM-E14CcHeq17yQ">
                     <i class="fa fa-youtube"> </i>
                 </a>
             </li>
@@ -330,7 +320,7 @@ function generateHTMLFooter() {
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         © 2018 Copyright:
-        Ensemble Vocal de l'École Polytechnique
+        Ensemble Vocal de l'École polytechnique
     </div>
     <!--/.Copyright-->
 
@@ -344,7 +334,6 @@ FIN;
 
 function disconnect() {
     unset($_SESSION['loggedIn']);
-
     $_SESSION['admin'] = false;
 
 }

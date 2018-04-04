@@ -4,6 +4,7 @@
         <h3>Par mail :</h3>
         <h4><a href='mailto:bureau@chorale.polytechnique.org'>bureau@chorale.polytechnique.org</a></h4>
 
+
         <h3>Sur les réseaux sociaux :</h3>
         <!--Social buttons-->
         <ul class="list-unstyled list-inline">
