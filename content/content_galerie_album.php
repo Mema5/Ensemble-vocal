@@ -31,7 +31,7 @@ $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
  
 </div>
     
-<script type="text/javascript"> 
+<script> 
 
         jQuery(document).ready(function(){ 
                 jQuery("#gallery").unitegallery();
