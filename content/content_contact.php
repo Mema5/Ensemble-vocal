@@ -35,7 +35,15 @@
     <div class="col-md-1"></div>
     <div class="col-md-10 text-center">
         <br>
-        <h4>A bientôt ! <i>Le bureau 2016</i></h4>
-        <img class="img-responsive" src="pictures/photo_bureau.JPG" alt="The Holiners"> 
+        <?php
+        $promo = Bureau::getLastPromo($dbh);
+        $src = "pictures/bureau_$promo.jpg";
+        if (!file_exists($src)) {
+            $src = "pictures/bureau_defaut.jpg";
+        }
+        
+        echo "<h4>A bientôt ! <i>Le bureau $promo</i></h4>";
+        echo "<img class='img-responsive' src=$src alt='Bureau $promo'>";
+        ?>
     </div>
 </div>

@@ -1,9 +1,101 @@
+
+<div class='container-fluid'>
+    <h3>Ajout nouveau bureau</h3>
+    <form action="index.php?page=membres_submit" method="post" enctype="multipart/form-data">
+        <div class='row'>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group">
+                        <label for="promo">Promotion :</label>
+                        <input type='text' class="form-control" id="promo" placeholder="2048" name='ajoutBureau' required>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group">
+                        <label for="photo">Photo du bureau (facultatif) :</label>
+                        <input id="photo" name="photos" type="file" class="file">
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success" width="100%">Créer le nouveau bureau</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='row'>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group">
+                        <label for="membre1">Membre 1 :</label>
+                        <input type='text' class="form-control" id="membre1" value="Président(e)" name='fonction1'>
+                        <input type='text' class="form-control" id="membre1" placeholder="Nom" name='nom1'>
+                        <input type='text' class="form-control" id="membre1" placeholder="Prénom" name='prenom1'>
+                    </div>
+                    <div class="form-group">
+                        <label for="membre2">Membre 4 :</label>
+                        <input type='text' class="form-control" id="membre4" placeholder="Respo log" name='fonction4'>
+                        <input type='text' class="form-control" id="membre4" placeholder="Nom" name='nom4'>
+                        <input type='text' class="form-control" id="membre4" placeholder="Prénom" name='prenom4'>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group">
+                        <label for="membre2">Membre 2 :</label>
+                        <input type='text' class="form-control" id="membre2" value="Trésorier(e)" name='fonction2'>
+                        <input type='text' class="form-control" id="membre2" placeholder="Nom" name='nom2'>
+                        <input type='text' class="form-control" id="membre2" placeholder="Prénom" name='prenom2'>
+                    </div>
+                    <div class="form-group">
+                        <label for="membre1">Membre 5 :</label>
+                        <input type='text' class="form-control" id="membre5" placeholder="Respo web" name='fonction5'>
+                        <input type='text' class="form-control" id="membre5" placeholder="Nom" name='nom5'>
+                        <input type='text' class="form-control" id="membre5" placeholder="Prénom" name='prenom5'>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='container-fluid'>
+                    <div class="form-group">
+                        <label for="membre3">Membre 3 :</label>
+                        <input type='text' class="form-control" id="membre3" placeholder="Respo com" name='fonction3'>
+                        <input type='text' class="form-control" id="membre3" placeholder="Nom" name='nom3'>
+                        <input type='text' class="form-control" id="membre3" placeholder="Prénom" name='prenom3'>
+                    </div>
+                    <div class="form-group">
+                        <label for="membre2">Membre 6 :</label>
+                        <input type='text' class="form-control" id="membre6" placeholder="Fonction" name='fonction6'>
+                        <input type='text' class="form-control" id="membre6" placeholder="Nom" name='nom6'>
+                        <input type='text' class="form-control" id="membre6" placeholder="Prénom" name='prenom6'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+        </div>
+    </div>
+</div>
+</form>
+</div>
+
 <?php
+
 function printFormBureau($albums) {
     echo <<<FIN
     <div class='row'>
         <div class='col-md-6'>
             <div class='container-fluid'>
+    
+    
                 <div class='col-md-10 col-md-offset-1 noir'>
                 <h3>Créer un nouvel album</h3>
                 
@@ -35,13 +127,13 @@ function printFormBureau($albums) {
                         <label for="suppr">Selectionnez l'album à supprimer :</label> 
                         <select name='deleteAlbum' class="form-control" id="suppr">
 FIN;
-    
+
     // ---------- liste déroulante du nom des albums ----------
     foreach ($albums as $album) {
         $date = strtotime($album->date);
-        echo "<option value='$album->id'>$album->titre, ".date("d/m/Y",$date)."</option>";
+        echo "<option value='$album->id'>$album->titre, " . date("d/m/Y", $date) . "</option>";
     }
-    
+
     echo <<<FIN
                 
                         </select>

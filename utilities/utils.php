@@ -27,9 +27,9 @@ $page_list = array(
     ),
     array(
         'name' => 'membres',
-        'title' => 'Espace membres',
-        'menutitle' => 'hidden',
-        'admin' => false
+        'title' => 'Membres passés et présents du bureau de la chorale',
+        'menutitle' => 'Membres du bureau',
+        'admin' => true
     ),
     array(
         'name' => 'membres_submit',

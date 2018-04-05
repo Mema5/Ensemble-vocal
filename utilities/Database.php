@@ -369,17 +369,18 @@ FIN;
 
 class Bureau {
     
-    public $id;
+    public $promotion;
     public $nom;
     public $prenom;
     public $fonction;
-    public $promotion;
+    public $id;
+
     
     public static function getBureau($dbh, $promotion) {
-        $sth = $dbh->prepare("SELECT * FROM `bureaux` WHERE (`bureaux`.`promotion` = ?");
+        $sth = $dbh->prepare("SELECT * FROM `bureaux` WHERE `promotion` = ?");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Bureau');
         $sth->execute(array($promotion));
-        $bureau = $sth->fetch();
+        $bureau = $sth->fetchAll();
         return $bureau;
     }
     

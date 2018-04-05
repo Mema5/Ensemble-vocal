@@ -51,8 +51,6 @@ elseif (isset($_POST["addPhotosInAlbum"])) {
         // vérifications de type
         $test = true;
         $allowedExtensions = array("png", "PNG", "gif", "jpg", "jpeg", "JPG", "JPEG");
-        echo "file name";
-        //var_dump($_FILES['photos']['name']);
         foreach($_FILES['photos']['name'] as $fileName) {
             $dec = explode(".", $fileName);
             $test = $test && in_array(end($dec), $allowedExtensions);
