@@ -222,6 +222,7 @@ class Concert {
     public $heure;
     public $description;
     public $lieu;
+    public $billetterie;
 
     public static function getConcerts($dbh) {
         $sth = $dbh->prepare("SELECT * FROM `concerts` ORDER BY `date` DESC");
@@ -239,9 +240,9 @@ class Concert {
         return $concert;
     }
 
-    public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu) {
-        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`) VALUES (?,?,?,?,?,?,?)");
-        $sth->execute(array($oeuvre, $titre, $auteur, $date, $heure, $description, $lieu));
+    public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie) {
+        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`) VALUES (?,?,?,?,?,?,?,?)");
+        $sth->execute(array($oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie));
     }
 
     public static function deleteConcert($dbh, $id) {
