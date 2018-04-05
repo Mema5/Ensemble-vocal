@@ -31,14 +31,17 @@
                 <h4 class="panel-title">Bureau des élèves</h4>
             </div>
             <div class="panel-body">
-                Le bureau est composé d'élèves de la promotion 2016 :
-                <ul>
-                    <li>Présidente : Noémie Perivier</li>
-                    <li>Trésorier : Maël Madon</li>
-                    <li>Chargés de la communication : Louis Raison et Yolène Vanhaesbroucke</li>
-                    <li>Chargé de la logistique et webmaster: Anthony Guillen</li>
-                    <li>Secrétaire Général : Raphaël Yu</li>
-                </ul>
+                <?php
+                $promo = Bureau::getLastPromo($dbh);
+                $bureau = Bureau::getBureau($dbh, $promo);
+                echo "Le bureau actuel est composé d'élèves de la promotion $promo :";
+                echo "<ul>";
+                
+                foreach ($bureau as $membre) {
+                    echo "<li>$membre->fonction : $membre->prenom $membre->nom</li>";
+                }
+                echo "</ul>";
+                ?>
                 Chef de choeur : Patrice Holiner
                 <br>Courriel : <a title="Contacter le bureau" 
                                   href="mailto:bureau@chorale.polytechnique.org">

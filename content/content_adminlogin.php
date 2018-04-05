@@ -1,5 +1,5 @@
 <html>
-
+    <h4>Espace réservé aux administrateurs pour la maintenance du site.</h4>
     <form action="index.php?page=accueil&todo=login" method="post">
         <div class="form-group">
             <label for="login">Login</label>

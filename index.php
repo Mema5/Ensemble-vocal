@@ -82,7 +82,9 @@ generateMenu($_SESSION['admin']);
 
 <div class="container-fluid">
 
+
     <div id="content" class="content">
+
 
         <div>
             <h1><?php echo $pageTitle ?></h1>

@@ -27,9 +27,15 @@ $page_list = array(
     ),
     array(
         'name' => 'membres',
-        'title' => 'Espace membres',
+        'title' => 'Membres passés et présents du bureau de la chorale',
+        'menutitle' => 'Membres du bureau',
+        'admin' => true
+    ),
+    array(
+        'name' => 'membres_submit',
+        'title' => 'Formulaire envoyé',
         'menutitle' => 'hidden',
-        'admin' => false
+        'admin' => true
     ),
     array(
         'name' => 'galerie',
@@ -127,8 +133,7 @@ function generateHTMLHeader($title, $links) {
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
-    <!-- ... Unite Gallery ... -->	
+    <!-- ... Unite Gallery ... -->
 
     <script src='unitegallery/js/jquery-11.0.min.js'></script>	
     <script src='unitegallery/js/ug-common-libraries.js'></script>	
@@ -193,7 +198,7 @@ FIN;
             echo "</a></li>";
         }
         
-        if ($admin && $page['name'] != 'adminlogin' || (!$page['admin'] && !$admin)) {
+        if ($admin || !$page['admin'] && !$admin) {
             // Titres du menu
             if ($page['menutitle'] != "hidden") {
                 echo "<li><a class='menuButton' href='index.php?page=" . $page['name'] . "'>" . $page['menutitle'];
@@ -201,11 +206,11 @@ FIN;
             }
         }
     }
-    
     echo "</ul>";
     
     // Logo de login
     echo "<ul class='nav navbar-nav navbar-right'>";
+    
     if (!$admin) {
         // Cadenas 
         echo <<<FIN
@@ -230,13 +235,25 @@ FIN;
         </a></li>
 FIN;
     }
-//echo logButton();
-    echo "</ul></div></div></nav></header>";
+   
+    echo "</ul>";
 
-
-
-
+    // Bouton de reservation des places si concert en cours de réservation
+    $idconcert = 1; 
+    // ....
+    // requête à écrire dans la bdd pour trouver le dernier concert à venir
+    // idconcert vaut -1 si pas de concert à venir
+    // ....
+   
+    if ($idconcert != -1) {
+        echo "<a href='index.php?page=concert&id=$idconcert' class='btn btn-primary navbar-btn navbar-right' role='button'>";
+        echo "Prochain concert";
+        echo "</a>";
+    }
+    
+    echo "</div></div></nav></header>";
 }
+
 function generateHTMLFooter() {
 //Generates the footer for each page
     echo <<<FIN

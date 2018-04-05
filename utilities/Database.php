@@ -384,6 +384,62 @@ FIN;
 
 }
 
+
+class Bureau {
+    
+    public $promotion;
+    public $nom;
+    public $prenom;
+    public $fonction;
+    public $id;
+
+    
+    public static function getBureau($dbh, $promotion) {
+        $sth = $dbh->prepare("SELECT * FROM `bureaux` WHERE `promotion` = ?");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Bureau');
+        $sth->execute(array($promotion));
+        $bureau = $sth->fetchAll();
+        return $bureau;
+    }
+    
+    public static function getPromos($dbh) {
+        $sth = $dbh->prepare("SELECT DISTINCT `promotion` FROM `bureaux` ORDER BY `promotion` DESC ");
+        $sth->execute();
+        $promos = $sth->fetchAll();
+        return $promos;
+    }
+    
+    public static function getLastPromo($dbh) {
+        $sth = $dbh->prepare("SELECT max(`promotion`) FROM `bureaux`");
+        $sth->execute();
+        $promo = $sth->fetch();
+        return $promo[0];
+    }
+    
+    public static function addMembre($dbh, $promotion, $nom, $prenom, $fonction) {
+        /*
+         * Ajoute le membre du bureau dans la base de donnée
+         */
+        $sth = $dbh->prepare("INSERT INTO `bureaux` (`promotion`, `nom`, `prenom`, `fonction`) VALUES (?,?,?,?)");
+        $sth->execute(array($promotion, $nom, $prenom, $fonction));       
+    }
+    
+    public static function deleteBureau($dbh, $promo) {
+        // Supprime le bureau de la base de données
+        $sth = $dbh->prepare("DELETE FROM `bureaux` WHERE `promotion`=?");
+        $sth->execute(array($promo));
+        
+        // Supprime la photo du bureau des fichiers (si elle existe)
+        $filename = 'pictures/bureau_'. $promo;
+        if (file_exists($filename.".jpg") || file_exists($filename.".png") || file_exists($filename.".gif")) {
+            unlink($filename.".jpg");
+        } elseif (file_exists($filename.".png")) {
+            unlink($filename.".png");
+        } elseif(file_exists($filename.".gif")) {
+            unlink($filename.".gif");
+        }
+    }
+  
 class Lieu {
 
     public $id;
@@ -416,6 +472,7 @@ class Lieu {
         $sth = $dbh->prepare("DELETE FROM `lieux` WHERE `id`=?");
         $sth->execute(array($id));
     }
+
 
 }
 ?>
