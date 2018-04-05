@@ -1,13 +1,9 @@
 <?php
 $albums = Albums::getAlbums($dbh);
-//if (isset($_GET["album"]))
 $currentAlbumId = $_GET["album"];
 $currentAlbum = Albums::getAlbum($dbh, $currentAlbumId);
-//var_dump($currentAlbum);
-//var_dump($currentAlbumId);
 
 $liste_photos = Photos::getPhotos($dbh, $currentAlbumId);
-//var_dump($liste_photos);
 
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {

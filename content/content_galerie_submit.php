@@ -1,7 +1,6 @@
 <?php
 
 echo "<div class='container-fluid'>";
-// var_dump($_POST);
 
 // Un album a été créé
 if (isset($_POST["ajoutAlbum"])OR isset($_POST["dateAlbum"])OR isset($_POST["lieu"])) {
@@ -39,7 +38,6 @@ elseif (isset($_POST["deleteAlbum"])) {
 // Des photos ont été rajoutées
 elseif (isset($_POST["addPhotosInAlbum"])) {
     echo "<div class='row'>";
-    //var_dump($_FILES);
     
     $currentAlbumId = $_POST["addPhotosInAlbum"];
     if (empty($_FILES['photos']['tmp_name'])) {
