@@ -103,24 +103,27 @@
     
     
     <div class="col-xs-12 col-md-6">
+        <label for="inputLieu">Lieu du Concert</label>
         <select class="form-control custom-select input" name="lieu">
             <option selected>Choisissez un lieu</option>
             <?php
             $lieux = Lieu::getLieux($dbh);
-            var_dump($lieux);
             foreach ($lieux as $lieu){
                 echo "<option value=$lieu->id>$lieu->nom</option>";
             }
-            var_dump($lieu->nom);
             ?>
         </select>
     </div>
+    <div class="col-xs-12 col-md-6">
+        <label for="inputBilletterie">Lien vers la Billetterie</label>
+        <input type = "text" class="form-control" id="billetterie" name="billetterie" placeholder="https://collecte.io/test-billeterie-59423">
+        <small>Attention : créer en premier lieu la billetterie via la console de gestion Lydia.</small>
+    </div>
 
+    <div class="col-xs-offset-2 col-xs-8">
+        <button type="submit" class="btn btn-primary" style="align-content: center; width: 100%">Submit</button>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-    //Input Billetterie
-    //Input auteur
 </form>
 
 

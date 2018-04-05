@@ -20,12 +20,6 @@ $page_list = array(
         'admin' => false
     ),
     array(
-        'name' => 'reservation',
-        'title' => 'Réservez vos places',
-        'menutitle' => 'hidden',
-        'admin' => false
-    ),
-    array(
         'name' => 'membres',
         'title' => 'Membres passés et présents du bureau de la chorale',
         'menutitle' => 'Membres du bureau',
@@ -75,7 +69,7 @@ $page_list = array(
     ),
     array(
         'name' => 'concert',
-        'title' => 'Description du Concert',
+        'title' => 'Réservez vos places',
         'menutitle' => 'hidden',
         'admin' => false
     ),
@@ -246,7 +240,7 @@ FIN;
     // ....
    
     if ($idconcert != -1) {
-        echo "<a href='index.php?page=concert&id=$idconcert' class='btn btn-primary navbar-btn navbar-right' role='button'>";
+        echo "<a href='index.php?page=concert&concert=next' class='btn btn-primary navbar-btn navbar-right' role='button'>";
         echo "Prochain concert";
         echo "</a>";
     }
@@ -278,7 +272,7 @@ function generateHTMLFooter() {
                         <a class="footerButton" href="#!">Nos partenaires</a>
                     </li>
                     <li>
-                        <a class="footerButton" href="#!">L'École polytechnique</a>
+                        <a class="footerButton" href="http://www.polytechnique.edu/">L'École polytechnique</a>
                     </li>
                 </ul>
             </div>
@@ -286,7 +280,7 @@ function generateHTMLFooter() {
                 <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Liens utiles</h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a class = "footerButton" href="#!">A propos</a>
+                        <a class = "footerButton" href="index.php?page=presentation">A propos</a>
                     </li>
                     <li>
 

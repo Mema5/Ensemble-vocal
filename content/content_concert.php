@@ -3,7 +3,12 @@
 
 if (array_key_exists('concert', $_GET)){
     $id = $_GET['concert'];
-    $concert = Concert::getConcert($dbh, $id);
+    if ($id=='next'){
+        $concert = Concert::getConcerts($dbh);
+    }
+    else {
+        $concert = Concert::getConcert($dbh, $id);
+    }
     if (count($concert)==0){
         $authorized=false;
     }
@@ -14,7 +19,16 @@ if (array_key_exists('concert', $_GET)){
 }
 
 function printConcert($concert){
-    $description = $concert->description;
-    echo "$description";
+    $lien_billetterie = $concert->billetterie;
+    echo<<<FIN
+    <iframe 
+    height="700"
+    width="100%"
+    style="border:none;"
     
+    src=$lien_billetterie>
+    
+    Voici le lien vers la billetterie : <a href=$lien_billetterie>$lien_billetterie</a>;
+    </iframe>
+FIN;
 }

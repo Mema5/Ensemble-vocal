@@ -13,15 +13,14 @@
 
 <div class='row video-player'>
     <div class='col-xs-offset-1 col-sm-offset-2 col-xs-10 col-md-8 concert-video-title'>
-        <h3>Carmina Burana à l'École polytechnique</h3>
+        <h3>Gloria de Vivaldi à l'Église Saint-Eustache</h3>
     </div>
     <div class = "col-xs-offset-1 col-sm-offset-2 col-xs-10 col-md-8" id="ytplayer">
         <iframe id="ytplayer" type="text/html" width="100%" height="405"
-                src="https://www.youtube.com/embed/dUgC8G_yoV4?origin=http://localhost&modestbranding=1"
+                src="https://www.youtube.com/embed/G3Hk513vDq8?origin=http://localhost&modestbranding=1"
                 frameborder="0" allowfullscreen>
         </iframe>
     </div>
-
 
 
 </div>
