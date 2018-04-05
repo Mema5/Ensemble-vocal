@@ -9,7 +9,9 @@ and open the template in the editor.
 */
 
 
-
+#field {
+    margin-bottom:20px;
+}
 
 .title{
     font-family: 'Great Vibes', cursive;
