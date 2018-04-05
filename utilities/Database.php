@@ -439,6 +439,7 @@ class Bureau {
             unlink($filename.".gif");
         }
     }
+}
   
 class Lieu {
 
