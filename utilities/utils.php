@@ -78,6 +78,12 @@ $page_list = array(
         'title' => 'Description du Concert',
         'menutitle' => 'hidden',
         'admin' => false
+    ),
+    array(
+        'name' => 'creation_concert',
+        'title' => 'Création d\'un Concert',
+        'menutitle' => 'hidden',
+        'admin' => true
     )
 );
 
@@ -128,6 +134,7 @@ function generateHTMLHeader($title, $links) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- ... Unite Gallery ... -->
+
     <script src='unitegallery/js/jquery-11.0.min.js'></script>	
     <script src='unitegallery/js/ug-common-libraries.js'></script>	
     <script src='unitegallery/js/ug-functions.js'></script>
@@ -150,7 +157,7 @@ function generateHTMLHeader($title, $links) {
     <script src='unitegallery/js/ug-lightbox.js'></script>
     <script src='unitegallery/js/ug-carousel.js'></script>
     <script src='unitegallery/js/ug-api.js'></script>
-            
+
     <link rel='stylesheet' href='unitegallery/css/unite-gallery.css' type='text/css' />
     <script src='unitegallery/themes/tiles/ug-theme-tiles.js'></script>
     <link rel='stylesheet' 		  href='unitegallery/themes/default/ug-theme-default.css' type='text/css' />
@@ -250,7 +257,8 @@ FIN;
 function generateHTMLFooter() {
 //Generates the footer for each page
     echo <<<FIN
-    </section>
+    
+   </section>
     <!--Footer-->
     
 <div class="row">
@@ -331,4 +339,6 @@ function disconnect() {
     $_SESSION['admin'] = false;
 
 }
+
+?>
 

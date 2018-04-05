@@ -119,13 +119,12 @@ class Albums {
          */
         $sth = $dbh->prepare("INSERT INTO `albums` (`titre`, `date`, `lieu`) VALUES (?,?,?)");
         $sth->execute(array($titre, $date, $lieu));
-        
+
         $sth = $dbh->prepare("SELECT * FROM `albums` order by `id` DESC limit 1 ");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Albums');
         $sth->execute();
         $alb = $sth->fetch();
         return $alb;
-        
     }
 
     public static function deleteAlbum($dbh, $id) {
@@ -141,7 +140,7 @@ class Photos {
     public $cle;
     public $id_album;
     public $ext;
-    
+
     public static function getPhoto($dbh, $id_album, $clePhoto) {
         /*
          * Retourne l'objet photo correspondant à la clé $clePhoto
@@ -175,7 +174,7 @@ class Photos {
         $sth->execute(array($id_album));
         $cle_max = $sth->fetch();
         // cle_max[0] vaut la plus grande clé des photos de l'album ou NULL si pas de photo
-        
+
 
         if ($cle_max == NULL) {
             $cle_max = 0;
@@ -184,37 +183,37 @@ class Photos {
         }
 
         $sth = $dbh->prepare("INSERT INTO `photos` (`cle`,`id_album`,`ext`) VALUES (?,?,?)");
-        $sth->execute(array($cle_max+1, $id_album, $ext));
+        $sth->execute(array($cle_max + 1, $id_album, $ext));
 
         return $cle_max + 1;
     }
-    
+
     public static function deletePhoto($dbh, $id_album, $clePhoto) {
         /*
          * Supprime la photos de la base de données et des fichiers.
          */
         $photo = Photos::getPhoto($dbh, $id_album, $clePhoto);
-        
-        $filename = 'pictures/album'. $id_album . '_photo'. $clePhoto . '.' . $photo->ext;
-        $filename_petit = 'pictures/album'. $id_album . '_photo'. $clePhoto . '_petit.' . $photo->ext;
+
+        $filename = 'pictures/album' . $id_album . '_photo' . $clePhoto . '.' . $photo->ext;
+        $filename_petit = 'pictures/album' . $id_album . '_photo' . $clePhoto . '_petit.' . $photo->ext;
         unlink($filename);
         unlink($filename_petit);
-        
+
         $sth = $dbh->prepare("DELETE FROM `photos` WHERE `id_album`=? AND `cle` = ?");
         $sth->execute(array($id_album, $clePhoto));
     }
-    
+
     public static function deleteAll($dbh, $id_album) {
         $photos = Photos::getPhotos($dbh, $id_album);
-        foreach($photos as $photo) {
+        foreach ($photos as $photo) {
             Photos::deletePhoto($dbh, $id_album, $photo->cle);
         }
     }
 
 }
 
-class Concert{
-    
+class Concert {
+
     public $id;
     public $oeuvre;
     public $titre;
@@ -223,7 +222,7 @@ class Concert{
     public $heure;
     public $description;
     public $lieu;
-    
+
     public static function getConcerts($dbh) {
         $sth = $dbh->prepare("SELECT * FROM `concerts` ORDER BY `date` DESC");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Concert');
@@ -231,8 +230,8 @@ class Concert{
         $liste_concerts = $sth->fetchAll();
         return $liste_concerts;
     }
-    
-    public static function getConcert($dbh,$id){
+
+    public static function getConcert($dbh, $id) {
         $sth = $dbh->prepare("SELECT * FROM `concerts`  WHERE `id`= ?");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Concert');
         $sth->execute(array($id));
@@ -249,31 +248,48 @@ class Concert{
         $sth = $dbh->prepare("DELETE FROM `concerts` WHERE `id`=?");
         $sth->execute(array($id));
     }
-    
-    public static function getMonth($m){
-        if ($m=="01") {return "Janvier";}
-        elseif ($m=="02") {return "Février";}
-        elseif ($m=="03") {return "Mars";}
-        elseif ($m=="04") {return "Avril";}
-        elseif ($m=="05") {return "Mai";}
-        elseif ($m=="06") {return "Juin";}
-        elseif ($m=="07") {return "Juillet";}
-        elseif ($m=="08") {return "Août";}
-        elseif ($m=="09") {return "Septembre";}
-        elseif ($m=="10") {return "Octobre";}
-        elseif ($m=="11") {return "Novembre";}
-        elseif ($m=="12") {return "Décembre";}
+
+    public static function getMonth($m) {
+        if ($m == "01") {
+            return "Janvier";
+        } elseif ($m == "02") {
+            return "Février";
+        } elseif ($m == "03") {
+            return "Mars";
+        } elseif ($m == "04") {
+            return "Avril";
+        } elseif ($m == "05") {
+            return "Mai";
+        } elseif ($m == "06") {
+            return "Juin";
+        } elseif ($m == "07") {
+            return "Juillet";
+        } elseif ($m == "08") {
+            return "Août";
+        } elseif ($m == "09") {
+            return "Septembre";
+        } elseif ($m == "10") {
+            return "Octobre";
+        } elseif ($m == "11") {
+            return "Novembre";
+        } elseif ($m == "12") {
+            return "Décembre";
+        }
     }
 
-    public function print_concert($admin,$isFirst) {
-        $date=explode("-", $this->date);
-        $year=$date[0];
-        $month=Concert::getMonth($date[1]);
-        $day=$date[2];
-        $description= $this->description;
-        $time= $this->heure;
-        
-        
+    public function print_concert($dbh, $admin, $isFirst) {
+        $date = explode("-", $this->date);
+        $year = $date[0];
+        $month = Concert::getMonth($date[1]);
+        $day = $date[2];
+        $description = $this->description;
+        $time = $this->heure;
+        $idlieu = $this->lieu;
+        $lieu = Lieu::getLieu($dbh, $idlieu);
+        $coordonnees = $lieu->coordonnees;
+        $lat = explode(',', $coordonnees)[0];
+        $lon = explode(',', $coordonnees)[1];
+
         echo <<<FIN
 <div class="row event secondary1" id="concert$this->id">
 <div class="row event-banner">
@@ -302,7 +318,6 @@ class Concert{
 <br>
     <div class="row presentation-row">
         <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-8 presentation">
-            <h3>Présentation :</h3>
             $description
         </div>
         <div class="col-md-3 tarifs">
@@ -324,48 +339,51 @@ class Concert{
 <br>
 <div class="localisation row">
 FIN;
-        
-    if($isFirst){
-        echo<<<FIN
+
+        if ($isFirst) {
+            echo<<<FIN
         <div class="col-xs-12 col-md-8 map">
         <div id="map" class="map"></div>
 </div>
 <div class="col-xs-12 col-md-4">
 <h3>Adresse : </h3>
-1 avenue Charles de Gaulle, 75000 Paris.
+$lieu->adresse
    </div>
 FIN;
-    }
-    else{
-        echo<<<FIN
+        } else {
+            echo<<<FIN
         <div class="col-xs-offset-1 col-xs-11 adresse">
             <h3>Adresse : </h3>
-            1 avenue Charles de Gaulle, 75000 Paris.
+            $lieu->adresse
         </div>
 FIN;
-    }
-    echo<<<FIN
+        }
+        echo<<<FIN
     </div>
 </div>
 <div class="row see-more-book">
     <div class="btn-group btn-group-justified">
 FIN;
-    if($isFirst){echo"<a class='btn btn-default'>Réserver</a>";}
-echo<<<FIN
+        if ($isFirst) {
+            echo"<a class='btn btn-default' href='index.php?page=concert&concert=$this->id'>Réserver</a>";
+        }
+        if ($admin) {
+            echo"<a href='index.php?page=concerts&TODO=delete_concert&id=$this->id' class='remove-concert btn btn-default'>Supprimer</a>";
+            echo"<a href=# class='modify-concert btn btn-default'>Modifier</a>";
+        }
+        echo<<<FIN
     <a class='btn btn-default afficherconcert'>Afficher plus</a>
     </div>
 </div>
 </div>
 FIN;
-     if ($admin){
-        echo"<a href=# class='remove-concert'>Supprimer</a>";
-        echo"<a href=# class='modify-concert'>Modifier</a>";
+
+
+        return [$lat, $lon];
     }
 
+}
 
-               
-}
-}
 
 class Bureau {
     
@@ -421,6 +439,41 @@ class Bureau {
             unlink($filename.".gif");
         }
     }
+  
+class Lieu {
+
+    public $id;
+    public $nom;
+    public $adresse;
+    public $coordonnees;
+
+    public static function getLieux($dbh) {
+        $sth = $dbh->prepare("SELECT * FROM `lieux`");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Lieu');
+        $sth->execute();
+        $liste_lieux = $sth->fetchAll();
+        return $liste_lieux;
+    }
+
+    public static function getLieu($dbh, $id) {
+        $sth = $dbh->prepare("SELECT * FROM `lieux`  WHERE `id`= ?");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Lieu');
+        $sth->execute(array($id));
+        $lieu = $sth->fetchAll()[0];
+        return $lieu;
+    }
+
+    public static function addLieu($dbh, $nom, $adresse, $coordonnees) {
+        $sth = $dbh->prepare("INSERT INTO `lieux` (`nom`, `adresse`, `coordonnees`) VALUES (?,?,?)");
+        $sth->execute(array($nom, $adresse, $coordonnees));
+    }
+
+    public static function deleteLieu($dbh, $id) {
+        $sth = $dbh->prepare("DELETE FROM `lieux` WHERE `id`=?");
+        $sth->execute(array($id));
+    }
+
+
 }
 ?>
 
