@@ -79,12 +79,25 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            
+    </form>
+    <h3>Suppression d'un bureau</h3>
+    <form action="index.php?page=membres_submit" method="post" onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer le bureau sélectionné ?');">
+        <div class="form-inline">
+            <label for="suppr">Selectionnez le bureau à supprimer :</label> 
+            <select name='deleteBureau' class="form-control" id="suppr">
+    
+            <?php
+            // ---------- liste déroulante des promotions ----------
+            $promos = Bureau::getPromos($dbh);
+            foreach ($promos as $promo) {
+                echo "<option value='$promo[0]'>$promo[0]</option>";
+            }
+            ?>
+                
+            </select>
         </div>
-    </div>
-</div>
-</form>
+        <button type="submit" class="btn btn-primary">Supprimer</button>
+    </form>
 </div>
 
 <?php

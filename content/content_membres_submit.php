@@ -1,8 +1,5 @@
 <?php
 echo "<div class='container-fluid'>";
-var_dump($_POST);
-echo "<br>";
-var_dump($_FILES);
 
 // Un bureau a été créé
 if (isset($_POST["ajoutBureau"])) {
@@ -42,8 +39,16 @@ if (isset($_POST["ajoutBureau"])) {
 
             echo "<h4>Photos du bureau ajoutée.</h4>";
         }
-    }
-
+ 
     echo "<h4>Le bureau " . $promo . " a bien été créé !</h4>";
     echo '<a href="index.php?page=membres" class="btn btn-primary" role="button">Retourner à la page membre</a>';
     echo "</div>";
+}
+
+// Un bureau a été supprimé
+if (isset($_POST["deleteBureau"])) {
+    $promo = $_POST["deleteBureau"];
+    Bureau::deleteBureau($dbh, $promo);
+    echo "<h4>Le bureau " . $promo . " a bien été supprimé !</h4>";
+    echo '<a href="index.php?page=membres" class="btn btn-primary" role="button">Retourner à la page membre</a>';
+}
