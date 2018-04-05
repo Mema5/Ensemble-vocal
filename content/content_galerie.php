@@ -1,12 +1,6 @@
-<html>
-    <?php
+<?php
     echo "<div class='container-fluid'>";
-
     $albums = Albums::getAlbums($dbh);
-    //var_dump($albums);
-    //var_dump($_SESSION);
-    //var_dump($_POST);
-
 
     // ---------- Forumlaires d'admin ----------
     if ($_SESSION['admin']) {
@@ -35,7 +29,7 @@
     ?>
  
     </div>  
-    <script type="text/javascript"> 
+    <script> 
             jQuery(document).ready(function(){ 
                     jQuery("#gallery").unitegallery({
                                 tiles_justified_row_height: 300,
@@ -50,25 +44,6 @@
             }); 
     </script>   
 </div>
-
-    <?php
-//    $colonne = 1;
-//    foreach ($albums as $album) {
-//        if ($colonne==1) { 
-//            echo "<div class='row'>";
-//        }
-//        echo "<div class='col-md-4'>";
-//        printAlbum($album);
-//        echo "</div>";
-//        
-//        $colonne++;
-//        if ($colonne==4) {
-//            echo "</div>";
-//            $colonne=1;
-//        }
-//    }
-//    echo "</div>";
-//    ?>
 
 <?php
 function printFormAlbum($albums) {
