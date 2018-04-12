@@ -241,7 +241,7 @@ class Concert {
     }
 
     public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie) {
-        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`) VALUES (?,?,?,?,?,?,?,?)");
+        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`,`billetterie`) VALUES (?,?,?,?,?,?,?,?)");
         $sth->execute(array($oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie));
     }
 
