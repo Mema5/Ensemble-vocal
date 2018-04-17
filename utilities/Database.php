@@ -197,7 +197,7 @@ class Photos {
         $filename = 'pictures/album' . $id_album . '_photo' . $clePhoto . '.' . $photo->ext;
         $filename_petit = 'pictures/album' . $id_album . '_photo' . $clePhoto . '_petit.' . $photo->ext;
         unlink($filename);
-        unlink($filename_petit);
+        //unlink($filename_petit);
 
         $sth = $dbh->prepare("DELETE FROM `photos` WHERE `id_album`=? AND `cle` = ?");
         $sth->execute(array($id_album, $clePhoto));
@@ -240,8 +240,8 @@ class Concert {
         return $concert;
     }
 
-    public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie) {
-        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`) VALUES (?,?,?,?,?,?,?,?)");
+    public static function addConcert($dbh, $oeuvre, $titre, $auteur, $date, $heure, $description, $lieu, $billetterie) {
+        $sth = $dbh->prepare("INSERT INTO `concerts` (`oeuvre`, `titre`, `auteur`, `date`, `heure`, `description`, `lieu`, `billetterie`) VALUES (?,?,?,?,?,?,?,?)");
         $sth->execute(array($oeuvre, $titre, $auteur, $date, $heure, $description, $lieu,$billetterie));
     }
 

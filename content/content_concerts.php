@@ -54,7 +54,7 @@ function addConcert($dbh) {
     <strong>Direction</strong> – Patrice HOLINER</p>
 <p></p>
 </div>";
-    Concert::addConcert($dbh, $_POST['oeuvre'], $_POST['titre'], $_POST['auteur'], $_POST['date'], $_POST['heure'], $description, $_POST["lieu"]);
+    Concert::addConcert($dbh, $_POST['oeuvre'], $_POST['titre'], $_POST['auteur'], $_POST['date'], $_POST['heure'], $description, $_POST["lieu"], $_POST["billetterie"]);
 }
 
 if ($_SESSION['admin']) {
